@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>File System Demo</title>
+</head>
+<body>
+    <input type="file" id="input" accept="images/*" onchange="showFile(this)" multiple/>
+    <button id="butOpenFile">Open</button>
+
+    <script type="text/javascript" charset="utf-8">
+        let imglist = []
+        function showFile(input) {
+            let file = input.files
+            //console.log(file.name)
+            for (i=0; i<file.length; i++){
+                let reader = new FileReader()
+                reader.readAsArrayBuffer(input.files[i])
+                //reader.readAsArrayBuffer(input.files[i])
+                
+                reader.onload = () => {
+                    console.log(reader.result)
+                    let view = new Int8Array(reader.result)
+                    imglist.push(view)
+                    console.log(view)
+                }
+                reader.error = () => {
+                    console.log(reader.error)
+                }
+            }
+        }
+        console.log('Image List', imglist)
+    </script>
+</body>
+</html>

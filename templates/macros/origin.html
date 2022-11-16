@@ -1,0 +1,7 @@
+{% macro origin() %}
+<div id="origin"></div>
+<script type="text/javascript" charset="utf-8">
+    origin = document.querySelector('#origin')
+    origin.innerHTML = location.origin
+</script>
+{% endmacro %}

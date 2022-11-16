@@ -1,0 +1,75 @@
+{% macro posthead(xpost, curUser) %}
+{% import '/macros/origin.html' as origin %}
+        <div class="posthead">
+            <div class="head-line">
+                <img class="avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
+                <a href="/user/{{xpost.author.username}}/" class="opinfo">
+                    <div class="">
+                        {{ xpost.author.username }}
+                    </div>
+                </a>
+            </div>
+            <div class="end-line">
+                <span onclick="popmenu(event, '{{cur_user}}', {{xpost.post_id}} )" id="end-span">&#8285;</span>
+            </div>
+            <div class="pop-cover">
+                <div onclick="alert('You clicked the pop up menu)" class="pop-menu">
+                    <div class="lorem-ipsum">
+                        {{xpost.post_id}}
+                    </div>
+                    <div class="lorem-ipsum">
+                        {{xpost.author.username}}
+                    </div>
+                    <div class="lorem-ipsum">
+                        {{xpost.date_created}}
+                    </div>
+                    <div class="lorem-ipsum">
+                        {{cur_user}}
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endmacro %}
+    
+{% macro comment(xpost, curUser) %}
+{% import '/macros/origin.html' as origin %}
+    <div class="viewer" >{{curUser}}</div >
+    <input type="number" class="postid" value="{{xpost.post_id}}" />
+    <div class="stat">
+        <div class="post-date statspan">
+            {{xpost.date_created.strftime("%a %d-%m-%y")}}
+        </div>
+        <div class="comments statspan">
+            {{ xpost.post_comments|length }} Comment(s)
+        </div>
+    </div>
+    <div class="others">
+        <div onclick="likepost(event, '{{curUser}}', {{xpost.post_id}})" id="like-stat" class="like-stat common">
+           <img class="li-con" src="{{ origin.origin().innerHTML }}/static/images/icons/like_plain.svg" alt="" />
+            <span class="like">{{ xpost.likes|length }}</span>
+        </div>
+        <span class="common dvd">|</span>
+        <a href="/posts/post/{{xpost.post_id}}#editor" id="cmmt" class="comment common">
+           <img class="li-con" src="{{ origin.origin().innerHTML }}/static/images/icons/comment_icon_plain.svg" alt="" />
+            <span class="like">{{ xpost.post_comments|length }}</span>
+        </a>
+    </div>
+{% endmacro %}
+
+{% macro post(xpost, curUser) %}
+{% import '/macros/origin.html' as origin %}
+    <div class="posts">
+        {{ posthead(xpost) }}
+        <div class="userpost">
+            {{ xpost.content }}
+        </div>
+        {% if xpost.media_attachment %}
+        <div class="container">
+            {% for img in xpost.media_attachment %}
+            <img class="p-actual" src="" alt="{{img.media_title}}" />
+            {% endfor %}
+        </div>
+        {% endif %}
+        {{ comment(xpost, curUser) }}
+    </div>
+{% endmacro %}

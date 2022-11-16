@@ -1,0 +1,192 @@
+* {
+    box-sizing: border-box;
+    /* margin: 0; */
+}
+.posts {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    box-shadow: 0px 0px 2.5px -1px rgb(0, 128, 128);
+    /* height: 10em; */
+    width: 98%;
+    /* margin-bottom: 1em; */
+    margin: 1%;
+    /* padding: 0 1%; */
+}
+div[class="posts"]:last-child {
+    margin-bottom: 4em;
+}
+.posthead {
+    display: flex;
+    width: 100%;
+    height: 4em;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(0, 128, 128, 0.1);
+    padding: 1%;
+}
+.head-line {
+    display: flex;
+    justify-content: flex-start;
+    align-content: left;
+    align-items: center;
+    width: 60%;
+    /* border: 1px solid black; */
+}
+.end-line {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 30%;
+    /* border: 1px solid black; */
+}
+#end-span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    color: rgb(0, 128, 128);
+    font-size: 1.5em;
+    /* border: 1px solid black; */
+}
+.p-avatar-cover {
+    display: flex;
+    border: 1px solid black;
+    width: 3.2em;
+    height: 90%;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 0 3px -1px rgb(0, 128, 128);
+}
+.avatar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 1%; */
+    width: 3.5em;
+    height: 3.5em;
+    margin: 1% 1% 1% 1%;
+    border: 1px solid rgb(0, 128, 128, 0.1);
+    border-radius: 50%;
+    overflow: hidden;
+}
+.opinfo {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(0, 128, 128);
+    text-decoration: none;
+    margin: 0 2%;
+}
+.pop-cover {
+    display: none;
+    flex-direction: column;
+    background-color: rgb(50, 50, 50, .5);
+    height: 100%;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+}
+.pop-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 2.5;
+}
+.lorem-ipsum {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 3em;
+    width: 100%;
+    background-color: white;
+}
+.userpost {
+    display: flex;
+    align-items: center;
+    /* border: 1px solid black; */
+    width: 100%;
+    min-height: 2.5em;
+    max-height: 10em;
+}
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 5em;
+    border: 1px solid black;
+}
+.p-img {
+    height: 90%;
+}
+.p-actual {
+    width: 90%;
+    height: 2em;
+}
+.stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1%;
+}
+.statspan {
+    display: flex;
+    font-size: 0.8em;
+    color: rgb(0,128,128, 0.8);
+}
+.others {
+    display: flex;
+    width: 100%;
+    height: 3em;
+}
+.like-stat {
+    display: flex;
+    width: 50%;
+}
+#like-stat:active {
+    background-color: rgb(0, 128, 128, 0.1);
+}
+.like {
+    
+}
+.li-con {
+    height: 80%;
+    width: 2em;
+}
+#cmmt:active {
+    background-color: rgb(0, 128, 128, 0.1);
+}
+.comment {
+    width: 50%;
+    text-decoration: none;
+    /* border: 1px solid black; */
+}
+.common {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 128, 128);
+    border-top: 1px solid rgb(0, 128, 128, 0.1);
+    border-bottom: 1px solid rgb(0, 128, 128, 0.1);
+    font-size: 0.9em;
+    /* text-decoration: none; */
+}
+.dvd {
+    width: 0;
+    padding: 0;
+    color: rgb(0, 128, 128, 0.2);
+    font-size: 2em;
+}
+.postid, .viewer {
+    display: none;
+}

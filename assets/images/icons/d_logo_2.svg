@@ -1,0 +1,14 @@
+<svg width="79.375mm" height="110.93mm" version="1.1" viewBox="0 0 79.375 110.93" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+				<defs>
+								<linearGradient id="linearGradient862">
+												<stop style="stop-color:#f00" offset="0"/>
+												<stop style="stop-color:#fc0" offset="1"/>
+								</linearGradient>
+								<linearGradient id="linearGradient864" x1="116.5" x2="379" y1="190.36" y2="190.36" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient862"/>
+								<linearGradient id="linearGradient874" x1="379" x2="154" y1="250" y2="250" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient862"/>
+				</defs>
+				<g id="l1" transform="translate(-20.902 5.0989)">
+								<path transform="scale(.26458)" d="m229 100a150 150 0 0 0-150 150 150 150 0 0 0 150 150 150 150 0 0 0 150-150 150 150 0 0 0-150-150zm0 75a75 75 0 0 1 75 75 75 75 0 0 1-75 75 75 75 0 0 1-75-75 75 75 0 0 1 75-75z" style="fill:url(#linearGradient874);opacity:.993;stroke-width:1.0791"/>
+								<path transform="scale(.26458)" d="m379-19.271c-41.55 0-75 33.45-75 75v194.27a75 75 0 0 1-75 75 75 75 0 0 1-75-75 75 75 0 0 1 74.432-74.998 112.5 112.5 0 0 0-111.93 112.5 112.5 112.5 0 0 0 112.5 112.5 112.5 112.5 0 0 0 0.89258-4e-3 150 150 0 0 0 149.11-150z" style="fill:url(#linearGradient864);opacity:.993;stroke-width:.80936"/>
+				</g>
+</svg>

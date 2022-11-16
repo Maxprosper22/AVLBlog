@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="16.0px"
+   height="16.0px"
+   viewBox="0 0 16.0 16.0"
+   version="1.1"
+   id="SVGRoot">
+  <defs
+     id="defs10" />
+  <metadata
+     id="metadata13">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <circle
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:0.1;stroke:#008080;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path26"
+       cx="8"
+       cy="8"
+       r="4.0909901" />
+    <path
+       style="fill:#008080;fill-opacity:1;stroke:#008080;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 10.564269,10.628263 c 0.382405,-0.382405 0,-1.6224053 0,-1.6224053 0,-1.622404 -2.5642687,-1.622404 -2.518094,-1.6318954 0.217451,-0.044697 -2.6104441,0.00949 -2.6104441,1.6318954 0,0 -0.3824046,1.2400003 0,1.6224053 1.208808,1.208808 3.9197301,1.208808 5.1285381,0 z"
+       id="path857" />
+    <path
+       style="fill:#008080;fill-opacity:1;stroke:#ffffff;stroke-width:0.09;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 8.5712274,10.238876 9.8986593,8.7771727 10.351256,9.2917199 9.0279625,10.748869 c 0,0 -0.6109972,0.690299 -0.8417128,0.460656 -0.2405558,-0.239436 0.3849758,-0.970648 0.3849758,-0.970648 z"
+       id="path24" />
+    <ellipse
+       style="fill:#ffffff;fill-opacity:1;stroke:#008080;stroke-width:0.105093;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="path851"
+       cx="7.9632182"
+       cy="6.5149817"
+       rx="1.4984647"
+       ry="1.4086875" />
+  </g>
+</svg>

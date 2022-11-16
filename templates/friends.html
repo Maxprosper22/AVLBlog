@@ -1,0 +1,52 @@
+{% import '/macros/origin.html' as origin %}
+<!DOCTYPE html>
+<html>
+<header>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/friends.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/nav.css" type="text/css" media="all" />
+    <title>
+        {{ loggedUser.username }}- Friends
+    </title>
+</header>
+<body>
+    {% include 'nav.html' %}
+    <div class="frd-head">
+        <span onclick="history.back()" class="prev">&#8592;</span>
+        <span class="divisor" >&#124;</span>
+        <h3 class="head-tag">Friends ({{loggedUser.contact|length}})</h3>
+    </div>
+    
+    {% for chat in loggedUser.chats %}
+        {% for user in chat.users %}
+        {% if chat.chat_type == 'private' %}
+        {% if user.username != loggedUser.username %}
+        <div class="frd">
+            <div class="fr-cover">
+                <a href="/user/{{user.username}}" class="fr-view">
+                    <img class="fr-avatar" src="" alt="" />
+                    <h3 class="fr-name">{{ user.username }}</h3>
+                </a>
+                <div onclick="popmenu(event, '{{cur_user}}', '{{user.username}}')" class="fr-dot">
+                    &#8285;
+                </div>
+            </div>
+            <div class="fr-ops-cover">
+                <div class="fr-ops">
+                    <a href="chat/{{user.username}}?chatid={{chat.chat_id}}" class="fr-msg fr-com">
+                        Message
+                    </a>
+                    <div class="block fr-com">
+                        Block Contact
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+    {% endfor %}
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/friends.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

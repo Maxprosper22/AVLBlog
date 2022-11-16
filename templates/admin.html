@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block head %}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="static/css/admin.css" type="text/css" media="all" />
+{% endblock %}
+{% block title %}
+    <title>Admin Dashboard</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <a href="/admin/post_creation" class="sections">
+            <img id="user-icon" src="static/images/icons/user.png" alt="" />
+            
+            <div class="sections-txt">
+                <h2 class="section-hd-t">Post Creation</h2>
+                <p class="section-p">Create and publish new posts</p>
+            </div>
+        </a>
+        <a href="/admin/manage_posts" class="sections">
+            <img id="user-icon" src="static/images/icons/user.png" alt="" />
+            
+            <div class="sections-txt">
+                <h2 class="section-hd-t">Post Management</h2>
+                <p class="section-p">View and manage posts</p>
+            </div>
+        </a>
+        <a href="/admin/manage_users" class="sections">
+            <img id="user-icon" src="static/images/icons/user.png" alt="" />
+            
+            <div class="sections-txt">
+                <h2 class="section-hd-t">User Management</h2>
+                <p class="section-p">View and manage users and their data</p>
+            </div>
+        </a>
+        <!-- 
+        <div class="container-head">
+            <h1 class="all-users">ALL USERS</h1>
+        </div>
+        <table class="users-table">
+            <tr class="table-row">
+                <th class="t-header">user id</th>
+                <th class="t-header">username</th>
+                <th class="t-header">password</th>
+            </tr>
+            {% for user in users %}
+            <tr class="table-row">
+                <td class="t-data">
+                    {{ user.user_id }}
+                </td>
+                <td class="t-data">
+                    {{ user.username }}
+                </td>
+                <td class="t-data">
+                    {{ user.password }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="container2">
+        <div class="container-head">
+            <h1 class="all-users">ALL USERS</h1>
+        </div>
+        <div class="container-head">
+            <table class="users-table">
+                <tr class="table-row">
+                    <th class="t-header">user id</th>
+                    <th class="t-header">username</th>
+                    <th class="t-header">password</th>
+                </tr>
+                {% for user in users %}
+                <tr class="table-row">
+                    <td class="t-data">
+                        {{ user.user_id }}
+                    </td>
+                    <td class="t-data">
+                        {{ user.username }}
+                    </td>
+                    <td class="t-data">
+                        {{ user.password }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div> -->
+    </div>
+{% endblock %}

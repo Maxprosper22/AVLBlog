@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!-- <meta content="width=device-width, initial-scale=1" name="viewport" /> -->
+<link rel="stylesheet" href="static/css/posts.css" type="text/css" media="all" />
+{% endblock %}
+
+{% block title %}
+<title>Posts</title>
+{% endblock %}
+
+{% block content %}
+<div id="list-header">
+    <h1 id="head-txt">All Posts</h1>
+    <button id="sort-btn">Sort</button>
+</div>
+{% for post in posts %}
+<a href="/posts/post/{{ post.post_id }}" class="post-list">
+    <h1 class="post-title">{{ post.content[:11] }}...</h1>
+    <p class="date-created">
+        {{ post.date_created.date() }}
+    </p>
+</a>
+{% endfor %}
+{% endblock %}

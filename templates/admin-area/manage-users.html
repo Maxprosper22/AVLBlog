@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="static/css/manage-users.css" type="text/css" media="all" />
+{% endblock %}
+{% block title%}
+    <title>Manage Users</title>
+{% endblock %}
+{% block content %}
+    <div class="users">
+        {% for user in allUsers %}
+            <div class="user-item">
+                <h1 class="user-name">{{ user.username }}</h1>
+                <div class="user-info">
+                    <p class="admin" >
+                        <b><i>Admin</i></b>: {{ user.admin_user }}
+                    </p>
+                    <p class="user-id" >
+                        <b><i>User ID</i></b>: {{ user.user_id }}
+                    </p>
+                </div>
+            </div>
+        {% endfor%}
+    </div>
+{% endblock %}

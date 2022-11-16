@@ -1,0 +1,9 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-size: 5em;
+}
+#unauthorized {
+    border: 1px solid black;
+}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% import '/macros/postmacros.html' as macros %}
+{% block head %}
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/profile.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
+    <!-- <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/js/post_act.js" type="text/css" media="all" /> -->
+{% endblock %}
+{% block title %}
+    {{ user.username }}
+{% endblock %}
+
+{% block content %}
+    {%- if user.username == cur_user -%}
+        <nav class="p-nav">
+            <span onclick="history.back()" class="prev">&#8592;</span>
+            <div class="p-head-nav">
+                <div id="about" class="about field">
+                    <a href="friends" class="tablinks">Friends</a>
+                    <a href="pages" class="tablinks">Pages</a>
+                    <a href="pages" class="tablinks">Account</a>
+                </div>
+            </div>
+        </nav>
+        <div class="head">
+            <div class="cover">
+                <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
+            </div>
+            <div class="avatar-cover">
+                <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+            </div>
+            
+            <div id="detail">
+                <h1>{{ user.username }}</h1>
+                <p>{{ user.userid }}</p>
+            </div>
+        </div>
+        <div id="options">
+            <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
+            <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
+        </div>
+        <div id="all-posts" class="posts-cover field">
+        {% for post in user.posts %}
+            {{ macros.post(post, cur_user) }}
+        {% endfor %}
+        </div>
+        <div id="photos" class="photos field">
+            <div id="imglist">
+            {% for img in user.images %}
+                <div id="img">
+                    <img class="imgs" src="{{ origin.origin().innerHTML }}/static/{{ img.img_path }}" alt="img.img_title" />
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div id="account" class="account field">
+            <h1>Account settings</h1>
+        </div>
+
+        <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
+        
+    {%- elif user.username != cur_user -%}
+        <nav class="p-nav">
+            <span onclick="history.back()" class="prev">&#8592;</span>
+            <div class="p-head-nav">
+                {% if cur_user == 'Guest' %}
+                    <div id="about" class="about field">
+                        <a href="friends" class="tablinks">Friends</a>
+                        <a href="pages" class="tablinks">Pages</a>
+                        <a href="pages" class="tablinks">Others</a>
+                    </div>
+                {% elif cur_user != 'Guest' %}
+                    <div id="about" class="about field">
+                        <a href="friends" class="tablinks">Friends</a>
+                        <a href="pages" class="tablinks">Pages</a>
+                        {% if user.contact %}
+                            {% for cnt in user.contact %}
+                                {% if cnt.username != cur_user %}
+                                    <a href="" class="tablinks">Add Friend</a>
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <a href="/user/{{cur_user}}/chat/{{user.username}}" class="tablinks">Send Message</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="head">
+            <div class="cover">
+                <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
+            </div>
+            <div class="avatar-cover">
+                <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+            </div>
+            
+            <div id="detail">
+                <h1>{{ user.username }}</h1>
+                <p>{{ user.userid }}</p>
+            </div>
+        </div>
+        <div id="options">
+            <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
+            <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
+        </div>
+        
+        <div id="all-posts" class="posts-cover field">
+            {% for post in user.posts %}
+            {{ macros.post(post, cur_user) }}
+            {% endfor %}
+        </div>
+                
+        <div id="photos" class="photos field">
+            <div id="imglist">
+            {% for img in user.images %}
+                <div id="img">
+                    <img class="imgs" src="{{ origin.origin().innerHTML }}/static/{{ img.img_path }}" alt="img.img_title" />
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+        <div id="account" class="account field">
+            <h1>Account settings</h1>
+        </div>
+
+        <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
+    {% endif %}
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

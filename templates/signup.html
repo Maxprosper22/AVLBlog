@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block head %}
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <!-- <meta content="width=device-width, initial-scale=1" name="viewport" /> -->
+        <link rel="stylesheet" href="static/css/signup.css" type="text/css" media="all" />
+{% endblock %}
+{% block title %}
+    <title>Sign up</title>
+{% endblock %}
+{% block content %}
+    <form id="signupform" action="create_user" method="post" accept-charset="utf-8">
+        <h1 id="label">Signup Form</h1>
+        <input type="email" class="formfields" name="email" id="email" placeholder=" Email" />
+        <input type="text" class="formfields" name="username" id="username" placeholder=" Username" />
+        <input type="text" class="formfields" name="password" id="password" placeholder=" Password" />
+        <button type="submit" class="formfields" id="signupbtn" >Sign up</button>
+        <div id="invite" class="formfields">
+            <p>Already have an account?<a href="login">Log in</a> instead</p>
+        </div>
+    </form>
+    <script type="text/javascript" charset="utf-8">
+        let user_elt = document.getElementById('username')
+        let pass_elt = document.getElementById('password')
+        
+        function checkFields(e) {
+            if (user_elt.innerHTML === null && pass_elt.innerHTML === null) {
+                e.preventDefault()
+                alert('Cannot submit empty form')
+            }
+        }
+        document.getElementById('signupbtn').addEventListener('click', checkFields)
+    </script>
+{% endblock %}

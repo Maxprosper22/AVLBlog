@@ -1,0 +1,72 @@
+<div id="nav-container">
+    <nav id="app-nav">
+        <div id="nav-child">
+            <span class="nav-label">AVL</span>
+            <div id="svg">
+                &#8801;
+            </div>
+        </div>
+    </nav>
+    <div id="menu">
+        <a onclick="checkpage(event)" href="/" class="list-item">
+            <h2>Home</h2>
+        </a>
+        {%- if cur_user == 'Guest' -%}
+            <div class="list-item auth">
+                <a href="/signup" id="sign-up" class="act-btn">
+                    Sign up
+                </a>
+                <a href="/login" id="sign-in" class="act-btn">
+                    Sign in
+                </a>
+            </div>
+        {%- elif cur_user != 'Guest' -%}
+            <a onclick="checkpage(event)" href="/user/{{cur_user}}" class="list-item">
+                <img class="svg-icons" src="https://127.0.0.1:8080/static/images/icons/profile_icons_plain.svg" alt="" />
+                <h2>Profile</h2>
+            </a>
+            <div class="list-item auth">
+                <a href="/logout" id="sign-in" class="act-btn">
+                    Sign out
+                </a>
+            </div>
+        {%- endif -%}
+    </div>
+    <!-- <div id="menu-large">
+        <a href="/" class="list-item"><h2>Home</h2></a>
+        <a href="/posts" class="list-item"><h2>Topics</h2></a>
+        <a href="#" class="list-item"><h2>Categories</h2></a>
+        <a href="#" class="list-item"><h2>About Us</h2></a>
+        <a class="list-item" href="/login">Login</a>
+    </div> -->
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    function toggle(e){
+        if (document.getElementById('menu').style.display== 'none') {
+            document.getElementById('menu').style.display = 'flex'
+        }
+        else {
+            document.getElementById('menu').style.display = 'none'
+        }
+    }
+
+    document.getElementById('svg').addEventListener('click', toggle)
+    
+    function close(e) {
+        let elt = document.getElementById('menu')
+        
+        if (elt.style.display === 'flex') {
+            elt.style.display = 'none'
+        }
+    }
+    document.getElementById('menu').addEventListener('click', close);
+    
+    function checkpage(event) {
+        if (window.location == '/user/') {
+            event.preventDefault()
+            event.target.disabled = true
+        }
+    }
+</script>

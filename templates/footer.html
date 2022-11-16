@@ -1,0 +1,20 @@
+<footer id="app-footer">
+    <a href="/" title="Home" class="f-wrapper">
+        <img class="f-icons" src="{{ origin.origin().innerHTML }}/static/images/icons/home_icon_plain.svg" alt="" />
+    </a>
+    <a href="/search" title="Search" class="f-wrapper">
+        <!-- <img class="f-icons" src="{{ origin.origin().innerHTML }}/static/images/icons/search_plain.svg" alt="" /> -->
+        <span class="f-icons"><span class="s-bar">&#9906;</span></span>
+    </a>
+    {% if cur_user != 'Guest' %}
+    <a href="/posts/create-post" title="new-post" class="f-wrapper">
+        <img class="f-icons" src="{{ origin.origin().innerHTML }}/static/images/icons/edit_post_plain.svg" alt="" />
+    </a>
+    <a href="/user/{{cur_user}}/messages" title="Messages" class="f-wrapper">
+        <img class="f-icons" src="{{ origin.origin().innerHTML }}/static/images/icons/msg_icon2_plain.svg" alt="" />
+    </a>
+    <a href="/user/{{cur_user}}" title="Profile" class="f-wrapper">
+        <img class="f-icons" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
+    </a>
+    {% endif %}
+</footer>

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block head %}
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="static/css/login.css" type="text/css" media="all" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+{% endblock %}
+{% block title %}
+    <title>Login Page</title>
+{% endblock %}
+{% block content %}
+    <form name="loginForm" id="login" action="authenticate" method="post" accept-charset="utf-8">
+        <h1 id="label">Login</h1>
+        <input type="text" class="formfields" name="username" id="username" placeholder=" Username" />
+        <input type="password" class="formfields" name="password" id="password" placeholder=" Password" />
+        <button type="submit" id="loginbtn" class="formfields" >Login</button>
+        <div id="invite" class="formfields">
+            <p>Don't have an account? <a href="/signup">Sign up</a> for one</p>
+        </div>
+    </form>
+    <script type="text/javascript" charset="utf-8">
+    /* 
+        let user_elt = document.forms['loginForm']['username'].value
+        let pass_elt = document.forms['loginForm']['password'].value
+        
+        function checkFields(e) {
+            if (user_elt || pass_elt == '') {
+                alert('Cannot submit empty form')
+                e.preventDefault()
+            } else if (user_elt || pass_elt !== '') {
+                alert('Holla')
+            }
+        }
+        document.getElementById('loginbtn').addEventListener('click', checkFields) */
+    </script>
+{% endblock %}

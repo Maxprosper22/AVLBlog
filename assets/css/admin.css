@@ -1,0 +1,98 @@
+@media screen and (max-width: 720) {
+    * {
+        box-sizing: border-box;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        /* min-height: 50em; */
+        height: 120em;
+        width: 100vw;
+        padding: 1% 0;
+        border: 1px solid black;
+        position: relative;
+        top: 10;
+        margin-top: 10vh;
+    }
+    .container-head {
+        border: 1px solid black;
+        height: 10%;
+        width: 100%;
+        /* margin-top: 10vh; */
+    }
+    .users-table {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        border: 1px solid black;
+        /* font-size: 3em; */
+    }
+    .table-row {
+        border: 1px solid black;
+        height: 100%;
+        width: 50%;
+    }
+    .t-header {
+        width: 100%;
+        height: 100%;
+        border: 1px solid black;
+    }
+    .t-data {
+        border: 1px solid black;
+    }
+    
+    .sections {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid rgb(0, 128, 128);
+        height: 32%;
+        width: 97%;
+        margin: auto;
+        text-decoration: none;
+        color: white;
+        box-shadow: 1px 1px 3px 3px rgb(204, 204, 204)
+    }
+    .sections:active {
+        color: rgb(0, 120, 120);
+    }
+    /* .sections:visited {
+        color: rgb(0, 128, 128, .1);
+    } */
+    #user-icon {
+        height: 60%;
+        width: 40%;
+        padding: 2%;
+        margin: auto;
+        border: 1px solid rgb(0, 128, 128, .4);
+        border-radius: 50%;
+    }
+    .sections-txt {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
+        border-top: 1px solid rgb(0, 128, 128);
+        height: 34%;
+        width: 100%;
+        background-color: rgb(0, 128, 128);
+    }
+    .sections-txt:active {
+        background-color: white;
+    }
+    .section-hd-t {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 30%;
+        width: 70%;
+        border-bottom: 5px solid rgb(0, 115, 115);
+        font-size: 3em;
+    }
+    .section-p {
+        font-size: 2em;
+    }
+}

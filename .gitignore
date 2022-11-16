@@ -1,0 +1,5 @@
+__pycache__/
+heroku.tar.gz
+req_stat.py
+pop.py
+site/sessions

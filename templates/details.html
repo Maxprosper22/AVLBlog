@@ -1,0 +1,59 @@
+{% import '/macros/origin.html' as origin %}
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="static/css/details.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/nav.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/base.css" type="text/css" media="all" />
+    <!-- <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/js/post_act..js" type="text/javascript" media="all" /> -->
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/js/base.js" type="text/javascript" media="all" />
+    <title>AVL - {{ postObj.title}}</title>
+</head>
+<body>
+    {% import '/macros/postmacros.html' as macros %}
+    {% include 'nav.html' %}
+    <div class="content">
+        <!-- <input type="text" class="cur_user" value="{{cur_user}}" /> -->
+        {{ macros.posthead(postObj, cur_user) }}
+
+        <div class="post-content">
+            {{ postObj.content }}
+        </div>
+        
+        {{ macros.comment(postObj, cur_user) }}
+        <div class="comment-head">
+            <h2 class="cmt-hd-txt">Comments</h2>
+        </div>
+        {% for comment in postObj.post_comments %}
+            <div class="post-comments">
+                <div class="head-cover">
+                    <div class="user-info">
+                        <span class="cmmt-avatar"></span>
+                        
+                        <h4 class="person">{{ comment.user.username }}</h4>
+                        <h4 class="cmt-date">{{ comment.date_created.strftime("%d/%-m/%y") }}</h4>
+                    </div>
+                    
+                    <div class="comment-options">
+                        <span>&#8285;</span>
+                    </div>
+                </div>
+                <div class="comment-actual">
+                    {{ comment.comment }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if currentUser !='Guest' and userStatus== True %}
+        <div class="comment-form" action="/comment" method="post" accept-charset="utf-8">
+            <textarea id="editor" placeholder="Comment..." ></textarea>
+            <div id="comment-btn" class="act-btn" >Submit</div>
+        </div>
+    {% endif %}
+    
+    <script src="static/scripts/js/details.js" type="text/javascript" charset="utf-8">
+    </script>
+    <script src="static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
+</body>

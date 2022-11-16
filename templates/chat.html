@@ -1,0 +1,77 @@
+{% import '/macros/origin.html' as origin %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/base.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/nav.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/chat.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+    <title>{{ chatmate.username }}</title>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+{% import '/macros/toast.html' as toast %}
+{% include 'nav.html' %}
+    <div class="page-head">
+        <div class="head-content">
+            <span onclick="history.back()" class="prev">&#8592;</span>
+            <h3 class="head-user" >{{chatmate.username}}</h3>
+        </div>
+        <div class="head-dot">
+            &#8285;
+        </div>
+    </div>
+    <div id="gen-cover">
+        {% for msg in chat.msgs %}
+            {% if msg.user == loggedUser %}
+            <div class="chat-rows">
+                <div class="chat-box user-chat">
+                    {% if msg.media %}
+                        {% for md in msg.media %}
+                        {% if 'image/' in md.media_type %}
+                        <div class="msg-media">
+                            <img class="msg-img" src="{{ origin.origin().innerHTML }}/static/{{md.path}}" alt="" />
+                        </div>
+                        {% elif 'video/' in md.media_type %}
+                        <div class="msg-media">
+                            <video src="{{ origin.origin().innerHTML }}/static/{{ md.path }}" height="6em" width="6em" preload="none" autoplay="autoplay"></video>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    <p class="chat-item">{{msg.msg_txt}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%a %d-%m-%y")}}</p>
+                </div>
+            </div>
+            {% else %}
+            <div class="chat-rows">
+                <div class="chat-box chatmate">
+                    <p class="chat-item">{{msg.msg_txt}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%a %d-%m-%y")}}</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+<div class="msg-cover">
+    <div class="media-links">
+        <div class="emojis">
+            
+        </div>
+        <div class="link-files">
+            
+        </div>
+    </div>
+    <div class="msg-upload">
+        <textarea class="new-msg msg-alibi" id="new-msg" placeholder="Hello... "></textarea>
+        <div onclick="send_msg(event, '{{cur_user}}', '{{chatmate.username}}', {{chat.chat_id}})" class="sendmsg msg-alibi">
+            Send
+        </div>
+    </div>
+</div>
+{{ toast.toast }}
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/chat.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

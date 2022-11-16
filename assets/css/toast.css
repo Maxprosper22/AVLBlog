@@ -1,0 +1,27 @@
+#toast-cover {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    position: fixed;
+    bottom: 10%;
+    /* left: 0; */
+    align-self: center;
+    margin: 0 auto;
+    z-index: 2.5;
+    /* border: 1px solid black; */
+}
+#toast {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 4em;
+    width: 50%;
+    /* border: 1px solid black; */
+    color: rgb(255, 255,255);
+    background-color: rgb(0, 0, 0);
+    margin: auto;
+}

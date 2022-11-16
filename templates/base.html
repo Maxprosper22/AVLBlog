@@ -1,0 +1,24 @@
+{% import '/macros/origin.html' as origin %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/base.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/nav.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/footer.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
+    {% block head %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <main>
+        {% include 'nav.html' %}
+
+        {% block content %}{% endblock %}
+
+        {% include 'footer.html' %}
+    </main>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/base.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

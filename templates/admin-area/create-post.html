@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="shortcut icon" href="static/images/avatar/d-logo.svg" type="image/x-icon" />
+    <link rel="stylesheet" href="static/css/create_post.css" type="text/css" media="all" />
+    <script src="static/pyodide/pyodide.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <link rel="stylesheet" href="static/pyscript/pyscript.css" /> -->
+    <!-- <script defer src="static/pyscript/pyscript.js"></script> -->
+    <!-- <py-env>
+        -os
+    </py-env> -->
+    <!-- <py-config>
+        - autoclose_loader: true
+        - runtimes:
+          -
+            src: "static/pyodide/pyodide.js"
+            name: pyodide-0.20
+            lang: python
+    </py-config> -->
+{% endblock %}
+{% block title %}
+    Create New Post
+{% endblock %}
+{% block content %}
+    <div class="user">
+        <div class="avatar-cover">
+            <img class="avatar" src="" alt="" />
+        </div>
+        <a href="/user/{{user.username}}" class="username">{{ user.username }}</a>
+        <button type="submit" id="post-btn" >Post</button>
+    </div>
+    <form class="new-post-form" method="post" accept-charset="utf-8">
+        <textarea type="text" name="content" id="text_content" placeholder="Create your post" ></textarea>
+        <!-- <div class="tag-case">
+            <div class="tags">
+                
+            </div>
+            <div class="tag-pick">
+                <label id="tag-label" for="addtag">Tag:</label>
+                <input type="text" name="addtag" id="tag" />
+            </div>
+        </div> -->
+        <div class="media-case">
+            <div class="picker">
+                <div onclick="pickFiles(event)" class="media-pick" id="media-pick">Upload media</div>
+                <!-- <div class="media-pick" id="video-pick">Add Video</div> -->
+            </div>
+            <div id="media-hold" class="media-hold">
+            </div>
+        </div>
+    </form>
+    <mapro src="static/scripts/py/mapro.py" id="out">
+    </mapro>
+    <script src="static/scripts/js/createpost.js" type="text/javascript" charset="utf-8" ></script>
+    <script src="static/scripts/js/mapro.py" type="text/python" charset="utf-8"></script>
+{% endblock %}

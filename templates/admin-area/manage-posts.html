@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="static/css/manage-posts.css" type="text/css" media="all" />
+    <!-- <meta content="width=device-width, initial-scale=1" name="viewport" /> -->
+{% endblock %}
+{% block title%}
+    <title>Manage Posts</title>
+{% endblock %}
+{% block content %}
+    <div class="posts">
+        {% for post in allPosts %}
+            <div class="post-item">
+                <h1 class="post-title">{{ post.title }}</h1>
+                <div class="post-info">
+                    <p class="author" ><b><i>BY</i></b>: {{ post.author.username }}</p>
+                    <p class="created-on"><b><i>CREATED</i></b>: {{ post.date_created.date() }} {{ post.date_created.time().replace(microsecond=0) }}</p>
+                </div>
+            </div>
+        {% endfor%}
+    </div>
+{% endblock %}

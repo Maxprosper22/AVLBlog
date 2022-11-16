@@ -1,0 +1,26 @@
+@media screen and (max-width: 720px) {
+    * {
+        box-sizing: border-box;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-self: center;
+        align-items: center;
+        border: 1px solid black;
+        height: 10vh;
+        width: 100vw;
+        margin: auto;
+    }
+    h1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid black;
+        font-size: 3em;
+        height: 30%;
+        width: 50%;
+        margin: auto;
+    }
+}
