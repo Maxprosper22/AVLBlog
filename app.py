@@ -1,4 +1,4 @@
-import cherrypy, cherrypy_cors
+import cherrypy
 import os, time, socket
 import bcrypt
 from components.templater import index, admin_page, req400, managePosts, manageUsers, all_dir, logIn, signUp, chat
