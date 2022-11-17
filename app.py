@@ -257,6 +257,6 @@ cherrypy.config.update({
     # 'server.socket_port': 443,
     
     'server.socket_host': '0.0.0.0',
-    'server.socket_port': int(os.environ.get('PORT', '8000')),
+    'server.socket_port': int(os.environ.get('PORT', 8000)),
 })
 cherrypy.quickstart(App(), '/', conf)
