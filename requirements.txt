@@ -3,4 +3,3 @@ psycopg2
 jinja2
 sqlalchemy
 py-bcrypt
-python3.11
