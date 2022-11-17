@@ -251,9 +251,9 @@ app = App()
 
 # cherrypy.config.update({'environment': 'production'})
 cherrypy.config.update({
-    'server.ssl_module': 'pyopenssl',
-    'server.ssl_certificate': './site/certificate/cert.pem',
-    'server.ssl_private_key': './site/certificate/private-key.pem',
+    # 'server.ssl_module': 'pyopenssl',
+    # 'server.ssl_certificate': './site/certificate/cert.pem',
+    # 'server.ssl_private_key': './site/certificate/private-key.pem',
     # 'server.socket_port': 443,
     
     'server.socket_host': '0.0.0.0',
