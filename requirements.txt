@@ -3,4 +3,4 @@ psycopg2
 jinja2
 sqlalchemy
 py-bcrypt
-python >= 3.11
+python3.11
