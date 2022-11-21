@@ -12,8 +12,8 @@ for (i=0; i<covers.length; i++) {
     })
 }
 
-async function getchat(event, xviewer, xfriend, xchatid) {
-    location = `chat/${xfriend}?chatid=${xchatid}`
+async function getchat(event, xviewer, xname, xchatid) {
+    location = `chat/${xname}?chatid=${xchatid}`
     // if (event.target == this) {
     //     alert('Holla')
     //     location = `chat/${xfriend}?chatid=${xchatid}`

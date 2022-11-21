@@ -3,7 +3,8 @@
 {% block head %}
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/profile.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
-    <!-- <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/js/post_act.js" type="text/css" media="all" /> -->
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 {% block title %}
     {{ user.username }}
@@ -62,27 +63,21 @@
         <nav class="p-nav">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
-                {% if cur_user == 'Guest' %}
-                    <div id="about" class="about field">
-                        <a href="friends" class="tablinks">Friends</a>
-                        <a href="pages" class="tablinks">Pages</a>
-                        <a href="pages" class="tablinks">Others</a>
-                    </div>
-                {% elif cur_user != 'Guest' %}
-                    <div id="about" class="about field">
-                        <a href="friends" class="tablinks">Friends</a>
-                        <a href="pages" class="tablinks">Pages</a>
-                        {% if user.contact %}
-                            {% for cnt in user.contact %}
-                                {% if cnt.username != cur_user %}
-                                    <a href="" class="tablinks">Add Friend</a>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <a href="/user/{{cur_user}}/chat/{{user.username}}" class="tablinks">Send Message</a>
+                <div id="about" class="about field">
+                {% if cur_user != 'Guest' %}
+                    {% for chat in user.chats %}
+                        {% if chat.chat_type =='p2p' %}
+                            {% if loggedUser in chat.users %}
+                                <a href="/user/{{cur_user}}/chat/{{user.username}}?chatid={{chat.chat_id}}" class="tablinks">Send Message</a>
+                            {% else %}
+                                <a href="" class="tablinks">Add Friend</a>
+                            {% endif %}
                         {% endif %}
-                    </div>
+                    {% endfor %}
                 {% endif %}
+                    <a href="friends" class="tablinks">Friends</a>
+                    <a href="pages" class="tablinks">Pages</a>
+                </div>
             </div>
         </nav>
         <div class="head">

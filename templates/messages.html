@@ -7,40 +7,22 @@
 {% block content %}
 <div class="page-head">
     <span class="head-span">Messages</span>
-    <div class="new-grp">
+    <a href="create-group" class="new-grp">
         New Group
-    </div>
+    </a>
 </div>
 {% for chat in chats %}
-    {% for user in chat.users %}
-        {% if chat.chat_type == 'private' %}
-            {% if user.username != loggedUser.username %}
-                <div  class="msg-block">
-                    <div class="msg-cover">
-                        <div onclick="getchat(event, '{{cur_user}}', '{{user.username}}', '{{chat.chat_id}}')" class="msg">
-                            <span class="user-ops">{{user.username}}</span>
-                            <span class="msg-txt">{{chat.msgs[-1].msg_txt}}</span>
-                            <span class="msg-date">{{chat.chat_date.strftime("%a %d-%m-%y")}}</span>
-                        </div>
-                        <div onclick="popmenu(event, '{{cur_user}}', '{{user.username}}')" class="msg-dot">
-                            &#8285;
-                        </div>
-                    </div>
-                    <div class="menu-cover">
-                        <div class="menu-ops">
-                            <span class="ops-item">Mute</span>
-                            <span class="ops-item">Pin</span>
-                        </div>
-                    </div>
-                </div>
-            {% endif%}
-        {% elif chat.type != 'private' %}
+    {% if chat.chat_type == 'p2p' %}
+        {% for user in chat.users %}
+        {% if user.username != loggedUser.username %}
             <div  class="msg-block">
                 <div class="msg-cover">
-                    <div onclick="getchat(event, '{{cur_user}}', '{{chat.chat_name}}', '{{chat.chat_id}}')" class="msg">
+                    <div onclick="getchat(event, '{{cur_user}}', '{{user.username}}', '{{chat.chat_id}}')" class="msg">
                         <span class="user-ops">{{user.username}}</span>
-                        <span class="msg-txt">{{chat.msgs[-1].msg_txt[:4]}}</span>
+                        {% if chat.mgs %}
+                        <span class="msg-txt">{{chat.msgs[-1].msg_txt}}</span>
                         <span class="msg-date">{{chat.chat_date.strftime("%a %d-%m-%y")}}</span>
+                        {% endif %}
                     </div>
                     <div onclick="popmenu(event, '{{cur_user}}', '{{user.username}}')" class="msg-dot">
                         &#8285;
@@ -50,12 +32,32 @@
                     <div class="menu-ops">
                         <span class="ops-item">Mute</span>
                         <span class="ops-item">Pin</span>
-                        <span class="ops-item">Leave Group</span>
                     </div>
                 </div>
             </div>
-        {% endif %}
-    {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% elif chat.type != 'p2p' %}
+        <div  class="msg-block">
+            <div class="msg-cover">
+                <div onclick="getchat(event, '{{cur_user}}', '{{chat.chat_name}}', '{{chat.chat_id}}')" class="msg">
+                    <span class="user-ops">{{chat.chat_name}}</span>
+                    <span class="msg-txt">{{chat.msgs[-1].user.username}}: {{chat.msgs[-1].msg_txt[:4]}}</span>
+                    <span class="msg-date">{{chat.chat_date.strftime("%a %d-%m-%y %H:%M")}}</span>
+                </div>
+                <div onclick="popmenu(event, '{{cur_user}}', '{{user.username}}')" class="msg-dot">
+                &#8285;
+                </div>
+            </div>
+            <div class="menu-cover">
+                <div class="menu-ops">
+                    <span class="ops-item">Mute</span>
+                    <span class="ops-item">Pin</span>
+                    <span class="ops-item">Leave Group</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endfor %}
 <a href="friends" class="createmsg">
     &#43;

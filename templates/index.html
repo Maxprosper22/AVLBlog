@@ -7,6 +7,8 @@
 <link rel="shortcut icon" href="{{ origin.origin().innerHTML }}/static/images/avatar/d-logo.svg" type="image/x-icon" />
 <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/index.css" type="text/css" media="all" />
 <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 {% block title %}
 AVL - Avenues To Learn
@@ -22,7 +24,7 @@ AVL - Avenues To Learn
     {{ macros.post(post, cur_user) }}
     {% endfor %}
     </div>
-{% else %}
+{% elif cur_user == 'Guest' %}
     <div id="banner">
         <h1 id="banner-txt">AVL - Avenues To Learn</h1>
     </div>

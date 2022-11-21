@@ -95,3 +95,30 @@ if (document.querySelector('.comment-form')) {
     let cmtBTN = document.querySelector('#comment-btn')
     cmtBTN.addEventListener('click', postComment)
 }
+
+toastCover = document.querySelector('#toast-cover')
+async function copyLink(event, xpostId) {
+    origin = location.origin
+    postid = xpostId
+    fullpath = `${origin}/posts/post/${postid}`
+    console.log(fullpath)
+    navigator.clipboard.writeText(fullpath)
+    toastCover.style.display = 'flex'
+    toast.innerHTML = 'Copied link!'
+    
+    let animation = anime({
+        targets: "#toast-cover",
+        keyframes: [
+            {opacity: 1},
+            {opacity: .75},
+            {opacity: .5},
+            {opacity: .25},
+            {opacity: 0}
+        ],
+        duration: 4000,
+        easing: "linear"
+    });
+    setTimeout(function() {
+        toastCover.style.display = 'none'
+    }, 4500);
+}

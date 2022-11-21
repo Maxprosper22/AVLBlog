@@ -62,7 +62,6 @@ class App:
         print('User: ', cherrypy.session['username'], 3)
         print('Admin: ', cherrypy.session['is_admin'])
         print('Authenticated: ', cherrypy.session['is_authenticated'])
-        print('IP Address: ', ipadd)
         
         front_page = session.query(Post)
         cur_user = cherrypy.session['username']
@@ -257,6 +256,6 @@ cherrypy.config.update({
     # 'server.socket_port': 443,
     
     'server.socket_host': '0.0.0.0',
-    'server.socket_port': int(os.environ.get('PORT', 8000)),
+    'server.socket_port': int(os.environ.get('PORT', 8080)),
 })
 cherrypy.quickstart(App(), '/', conf)

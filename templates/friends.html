@@ -20,7 +20,7 @@
     
     {% for chat in loggedUser.chats %}
         {% for user in chat.users %}
-        {% if chat.chat_type == 'private' %}
+        {% if chat.chat_type == 'p2p' %}
         {% if user.username != loggedUser.username %}
         <div class="frd">
             <div class="fr-cover">

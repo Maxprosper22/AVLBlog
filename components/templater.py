@@ -24,6 +24,7 @@ req400 = env.get_template('/request400.html')
 chat = env.get_template('/chat.html')
 frds = env.get_template('/friends.html')
 messages = env.get_template('/messages.html')
+makegrp = env.get_template('/makegrp.html')
 pages = env.get_template('/pages.html')
 
 all_dir = env.get_template('/directory.html')

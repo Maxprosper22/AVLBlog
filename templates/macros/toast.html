@@ -1,6 +1,7 @@
 {% macro toast() %}
+{% import '/macros/origin.html' as origin %}
 <div id="toast-cover">
     <div id="toast"></div>
 </div>
-<script src="location.origin/static/scripts/js/toast.js" type="text/javascript" charset="utf-8"></script>
+<script src="{{origin.origin().innerHTML}}/static/scripts/js/toast.js" type="text/javascript" charset="utf-8"></script>
 {% endmacro %}

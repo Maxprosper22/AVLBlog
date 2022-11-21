@@ -22,7 +22,7 @@
             </div>
         {%- elif cur_user != 'Guest' -%}
             <a onclick="checkpage(event)" href="/user/{{cur_user}}" class="list-item">
-                <img class="svg-icons" src="https://127.0.0.1:8080/static/images/icons/profile_icons_plain.svg" alt="" />
+                <img class="svg-icons" src="{{ origin.origin().inmerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
                 <h2>Profile</h2>
             </a>
             <div class="list-item auth">

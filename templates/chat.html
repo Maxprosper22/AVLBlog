@@ -8,8 +8,20 @@
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/nav.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/chat.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
-    <title>{{ chatmate.username }}</title>
-    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/libraries/emojs/emoji.css" type="text/css" media="all" />
+    <title>
+        {% if chat.chat_type == 'p2p' %}
+            {% for user in chat.users %}
+                {% if user.username != loggedUser.username %}
+                    {{ user.username }}
+                {% endif %}
+            {% endfor %}
+        {% elif chat.chat_type != 'p2p' %}
+            {{ chat.chat_name }}
+        {% endif %}
+    </title>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/emojs/emoji.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 {% import '/macros/toast.html' as toast %}
@@ -17,13 +29,23 @@
     <div class="page-head">
         <div class="head-content">
             <span onclick="history.back()" class="prev">&#8592;</span>
-            <h3 class="head-user" >{{chatmate.username}}</h3>
+            <h3 class="head-user" >
+                {% if chat.chat_type == 'p2p' %}
+                    {% for user in chat.users %}
+                        {% if user.username != loggedUser.username %}
+                            {{ user.username }}
+                        {% endif %}
+                    {% endfor %}
+                {% elif chat.chat_type != 'p2p' %}
+                    {{ chat.chat_name }}
+                {% endif %}
+            </h3>
         </div>
         <div class="head-dot">
             &#8285;
         </div>
     </div>
-    <div id="gen-cover">
+    <div onclick="closeTxtArea(event)" id="gen-cover">
         {% for msg in chat.msgs %}
             {% if msg.user == loggedUser %}
             <div class="chat-rows">
@@ -42,36 +64,33 @@
                         {% endfor %}
                     {% endif %}
                     <p class="chat-item">{{msg.msg_txt}}</p>
-                    <p class="chat-item msg-date">{{msg.date.strftime("%a %d-%m-%y")}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%H:%M %d-%m-%y")}}</p>
                 </div>
             </div>
             {% else %}
             <div class="chat-rows">
                 <div class="chat-box chatmate">
                     <p class="chat-item">{{msg.msg_txt}}</p>
-                    <p class="chat-item msg-date">{{msg.date.strftime("%a %d-%m-%y")}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%H:%M %d-%m-%y")}}</p>
                 </div>
             </div>
             {% endif %}
         {% endfor %}
     </div>
 <div class="msg-cover">
-    <div class="media-links">
-        <div class="emojis">
-            
-        </div>
-        <div class="link-files">
-            
-        </div>
-    </div>
     <div class="msg-upload">
-        <textarea class="new-msg msg-alibi" id="new-msg" placeholder="Hello... "></textarea>
-        <div onclick="send_msg(event, '{{cur_user}}', '{{chatmate.username}}', {{chat.chat_id}})" class="sendmsg msg-alibi">
-            Send
+        <div class="msg-input">
+            <div onclick="showEmo(event)" class="emojis msg-alibi">&#128512;</div>
+            <textarea onfocus="closeEmo(event)" onblur="closeTxt(event)" class="new-msg" id="new-msg" placeholder="Hello... "></textarea>
+            <div class="link-files msg-alibi">&#128206;</div>
+        </div>
+        <div onclick="send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
+            <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
         </div>
     </div>
+    <div id="emoji-container"></div>
 </div>
-{{ toast.toast }}
+{{ toast.toast() }}
 <script src="{{ origin.origin().innerHTML }}/static/scripts/js/chat.js" type="text/javascript" charset="utf-8"></script>
 </body>
 </html>

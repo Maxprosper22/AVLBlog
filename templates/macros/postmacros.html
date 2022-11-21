@@ -1,54 +1,80 @@
-{% macro posthead(xpost, curUser) %}
 {% import '/macros/origin.html' as origin %}
+{% import '/macros/toast.html' as toast %}
+{% macro posthead(xpost, curUser) %}
         <div class="posthead">
             <div class="head-line">
                 <img class="avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
-                <a href="/user/{{xpost.author.username}}/" class="opinfo">
-                    <div class="">
-                        {{ xpost.author.username }}
-                    </div>
-                </a>
+                <div class="time-line">
+                    <a href="/user/{{xpost.author.username}}/" class="opinfo">
+                        <div class="">
+                            {{ xpost.author.username }}
+                        </div>
+                    </a>
+                    <span class="statspan post-time">
+                        {{ xpost.date_created.strftime("%H:%M %a %d-%m-%y") }}
+                    </span>
+                </div>
             </div>
             <div class="end-line">
                 <span onclick="popmenu(event, '{{cur_user}}', {{xpost.post_id}} )" id="end-span">&#8285;</span>
             </div>
             <div class="pop-cover">
-                <div onclick="alert('You clicked the pop up menu)" class="pop-menu">
-                    <div class="lorem-ipsum">
-                        {{xpost.post_id}}
+                <div class="pop-menu">
+                    {% if curUser != 'Guest' %}
+                        {% if curUser == xpost.author.username %}
+                            <a href="edit" class="pop-items">
+                                Edit Post
+                            </a>
+                            <a href="edit" class="pop-items">
+                                <span>Delete Post</span>
+                            <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/delete.svg" alt="" />
+                            </a>
+                        {% elif curUser != xpost.author.username %}
+                            <a href="" class="pop-items" >
+                                <span>Hide Post</span>
+                            <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/cancel.svg" alt="" />
+                            </a>
+                            <a href="" class="pop-items" >
+                                Block Posts From {{ xpost.author.username }}
+                            </a>
+                            <a href="" class="pop-items share-post" >
+                                <span>Report Post</span>
+                                <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/flag.svg" alt="" />
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                    <a href="/posts/post/{{xpost.post_id}}" class="pop-items">
+                        View Post
+                    </a>
+                    <a class="pop-items share-post">
+                        <span>Share Post</span>
+                        <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/share.svg" alt="" />
+                    </a>
+                    <div onclick="copyLink(event, {{xpost.post_id}})" class="pop-items">
+                        <span>Copy Link</span>
+                        <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/clip.svg" alt="" />
                     </div>
-                    <div class="lorem-ipsum">
-                        {{xpost.author.username}}
-                    </div>
-                    <div class="lorem-ipsum">
-                        {{xpost.date_created}}
-                    </div>
-                    <div class="lorem-ipsum">
-                        {{cur_user}}
-                    </div>
+                    {{toast.toast()}}
                 </div>
             </div>
         </div>
 {% endmacro %}
     
 {% macro comment(xpost, curUser) %}
-{% import '/macros/origin.html' as origin %}
-    <div class="viewer" >{{curUser}}</div >
-    <input type="number" class="postid" value="{{xpost.post_id}}" />
-    <div class="stat">
+    <!-- <div class="stat">
         <div class="post-date statspan">
-            {{xpost.date_created.strftime("%a %d-%m-%y")}}
+            <span class="like">{{ xpost.likes|length }} Likes</span>
         </div>
         <div class="comments statspan">
             {{ xpost.post_comments|length }} Comment(s)
         </div>
-    </div>
+    </div> -->
     <div class="others">
-        <div onclick="likepost(event, '{{curUser}}', {{xpost.post_id}})" id="like-stat" class="like-stat common">
+        <div onclick="likepost(event, curUser, xpost.post_id)" id="like-stat" class="like-stat common">
            <img class="li-con" src="{{ origin.origin().innerHTML }}/static/images/icons/like_plain.svg" alt="" />
             <span class="like">{{ xpost.likes|length }}</span>
         </div>
-        <span class="common dvd">|</span>
+        <!-- <span class="common dvd">|</span> -->
         <a href="/posts/post/{{xpost.post_id}}#editor" id="cmmt" class="comment common">
            <img class="li-con" src="{{ origin.origin().innerHTML }}/static/images/icons/comment_icon_plain.svg" alt="" />
             <span class="like">{{ xpost.post_comments|length }}</span>
@@ -57,16 +83,16 @@
 {% endmacro %}
 
 {% macro post(xpost, curUser) %}
-{% import '/macros/origin.html' as origin %}
     <div class="posts">
-        {{ posthead(xpost) }}
+        {{ posthead(xpost, curUser) }}
         <div class="userpost">
             {{ xpost.content }}
         </div>
         {% if xpost.media_attachment %}
         <div class="container">
-            {% for img in xpost.media_attachment %}
-            <img class="p-actual" src="" alt="{{img.media_title}}" />
+            {% for media in xpost.media_attachment %}
+            <img class="p-actual" src="data:{{media.media_type,}};base64{{origin.origin().innerHTML}}/static/{{media.media_path}}" alt="{{media.media_title}}" />
+            {{media.media_path}}
             {% endfor %}
         </div>
         {% endif %}
