@@ -44,21 +44,17 @@ async function pickFiles(event) {
             setupReader(mediaPicker.files[file])
         }
     });
-    console.log(mediaList)
     
     return mediaPicker, mediaList
 }
 
+toastCover = document.querySelector('#toast-cover')
+toast = document.querySelector('#toast')
 async function submitpost(e) {
     e.preventDefault();
     
     let txt = document.getElementById('text_content');
     let media = document.querySelector('#pick_file')
-    
-    console.log(mediaList)
-    
-    alert('Post submission button clicked!')
-    //window.location = 'http://127.0.0.1:8080';
     
     data = {
         "author": document.querySelector('.username').innerHTML,
@@ -67,7 +63,7 @@ async function submitpost(e) {
     };
     postData = JSON.stringify(data);
 
-    fetch('https://127.0.0.1:8080/posts/add_post', {
+    let newPost = await fetch(`${location.origin}/posts/add_post`, {
             method: "POST",
             redirect: "follow",
             headers: {
@@ -76,6 +72,46 @@ async function submitpost(e) {
             body: postData,
         }
     );
+    if (newPost.status==200) {
+        toastCover.style.display = 'flex'
+        toast.innerHTML = 'New Post Created'
+        let animation = anime({
+            targets: "#toast-cover",
+            keyframes: [
+                {opacity: 1},
+                {opacity: .75},
+                {opacity: .5},
+                {opacity: .25},
+                {opacity: 0}
+            ],
+            duration: 4000,
+            easing: "linear"
+        });
+        setTimeout(function() {
+            toastCover.style.display = 'none'
+        }, 4500);
+        setTimeout(function() {
+            location.reload()
+        }, 4500);
+    } else {
+        toastCover.style.display = 'flex'
+        toast.innerHTML = 'An error occurred'
+        let animation = anime({
+            targets: "#toast-cover",
+            keyframes: [
+                {opacity: 1},
+                {opacity: .75},
+                {opacity: .5},
+                {opacity: .25},
+                {opacity: 0}
+            ],
+            duration: 4000,
+            easing: "linear"
+        });
+        setTimeout(function() {
+            toastCover.style.display = 'none'
+        }, 4500);
+    }
 }
 
 document.getElementById('post-btn').addEventListener('click', submitpost);

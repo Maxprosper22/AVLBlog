@@ -35,6 +35,13 @@ association_table = Table(
     Column('chat_id', ForeignKey('chats.chat_id'), primary_key=True)
 )
 
+follows_table = Table(
+    'follows_table',
+    Base.metadata,
+    Column('user_id', ForeignKey('users.user_id'), primary_key=True),
+    Column('page_id', ForeignKey('pages.page_id'), primary_key=True)
+)
+
 class User(Base):
     __tablename__ = 'users'
     
@@ -53,9 +60,26 @@ class User(Base):
     msgs = relationship('Message', back_populates='user')
     contact = relationship('Contact', back_populates='user')
     chats = relationship('Chat', secondary=association_table, back_populates="users")
+    pages = relationship('Page', back_populates='user')
+    following = relationship('Page', secondary=follows_table, back_populates="followers")
     
     def __repr__(self):
         return f"<User {self.username}>"
+
+class Page(Base):
+    __tablename__ = 'pages'
+    
+    page_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.user_id'))
+    post_id = Column(Integer, ForeignKey('posts.post_id'))
+    page_name = Column(Text, nullable=False)
+    user = relationship('User', back_populates='pages')
+    posts = relationship('Post', back_populates='page')
+    followers = relationship('User', secondary=follows_table, back_populates="following")
+    date_created = Column(DateTime, default=get_date())
+    
+    def __repr__(self):
+        return f"<Page: {self.page_name}, created on :{self.date_cteated.strft('%H:%M %a|%m|%d')}>"
 
 class Chat(Base):
     __tablename__ = 'chats'
@@ -134,6 +158,7 @@ class Post(Base):
     category = Column(String(50))
     date_created = Column(DateTime, default=get_date)
     user_id = Column(Integer, ForeignKey('users.user_id'))
+    page = relationship('Page', back_populates='posts')
     author = relationship('User', back_populates='posts')
     likes = relationship('Like', back_populates='post')
     post_comments = relationship('Comment', back_populates='post')

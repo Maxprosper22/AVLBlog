@@ -1,11 +1,5 @@
-async function loadpost(event, xpostid) {
+async function viewPost(event, xpostid) {
     location = `/posts/post/${xpostid}`
-}
-allpost = document.querySelectorAll('.userpost')
-for (xpost=0; xpost<allpost.length; xpost++) {
-    allpost[xpost].addEventListener('click', function(){
-        allpost[xpost].parentElement
-    })
 }
 
 async function popmenu(event, xviewer, xpostid) {
@@ -13,31 +7,24 @@ async function popmenu(event, xviewer, xpostid) {
     event.target.parentElement.nextElementSibling.style.display = 'flex'
 }
 
-covers = document.querySelectorAll('.pop-cover')
-for (i=0; i<covers.length; i++) {
-    covers[i].addEventListener('click', function (){
-        if (event.target == this) {
-            event.target.style.display = 'none'
-        }
-    })
+async function openImage(event) {
+    toucDiv = document.querySelector('.touch-scroll')
+    toucDiv.appendChild(event.target)
+    toucDiv.style.display = 'flex'
 }
-
-async function getPostMedia(event) {
-    pId = event.target.parentElement.parentElement[3].value
-    let getFiles = await fetch(`/posts/get_post_media?postid=${pId}`, {
-        method: 'GET'
-    })
-    let res = await getFiles
-    data = await res.json()
-    alert(data)
-    console.log('Holla')
+async function closepop(event) {
+    event.stopPropagation()
+    console.log(event.target)
+    event.target.style.display = 'none'
+    console.log(event.target)
 }
-pImage = document.getElementsByClassName('p-actual')
-for (xImg=0; xImg<pImage.length; xImg++){
-    pImage[xImg].addEventListener('loadstart', getPostMedia)
+async function poplinks(event) {
+    event.stopPropagation()
+    console.log(event.target)
 }
-
-async function get_likes(xpostid) {
+popItems = document.querySelectorAll('.pop-items')
+for (pItem=0; pItem<popItems.length; pItem++) {
+    popItems[pItem].addEventListener('click', poplinks)
 }
 
 async function likepost(event, xviewer, xpostid) {
@@ -97,11 +84,11 @@ if (document.querySelector('.comment-form')) {
 }
 
 toastCover = document.querySelector('#toast-cover')
+toast = document.querySelector('#toast')
 async function copyLink(event, xpostId) {
     origin = location.origin
     postid = xpostId
     fullpath = `${origin}/posts/post/${postid}`
-    console.log(fullpath)
     navigator.clipboard.writeText(fullpath)
     toastCover.style.display = 'flex'
     toast.innerHTML = 'Copied link!'
@@ -121,4 +108,33 @@ async function copyLink(event, xpostId) {
     setTimeout(function() {
         toastCover.style.display = 'none'
     }, 4500);
+}
+
+async function getMedia(event, postid) {
+    pId = postid
+    let getFiles = await fetch(`/posts/get_media?postID=${pId}`)
+    let res = await getFiles
+    if (res.status == 200) {
+        data = await res.json()
+        if (data.length > 1){
+            for (elt=0; elt < data.length; elt++) {
+                imgPrefix = `data:${data[elt]['type']};base64,`
+                imgElt = document.createElement('img')
+                imgElt.setAttribute('class', 'p-actual')
+                imgElt.setAttribute('src', imgPrefix + data[elt]['data'])
+                
+                event.path[1].appendChild(imgElt)
+            }
+        }
+        else if (data.length==1){
+            imgPrefix = `data:${data[0]['type']};base64,`
+            imgElt = document.createElement('img')
+            imgElt.setAttribute('class', 'p-actual')
+            imgElt.addEventListener('click', openImage)
+            imgElt.setAttribute('src', imgPrefix + data[0]['data'])
+            imgElt.style.width = '100%'
+                
+            event.path[1].appendChild(imgElt)
+        }
+    }
 }

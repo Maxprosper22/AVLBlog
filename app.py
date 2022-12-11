@@ -12,6 +12,7 @@ from components.post import Posts
 from components.admin import Admin
 from components.profile import Profile
 from components.search import Search
+from components.pages import Pages
 from components.subcomponents.test import Test
 
 from components.subcomponents.usercreation import adduser
@@ -33,6 +34,7 @@ class App:
         self.admin = Admin()
         self.user = Profile()
         self.search = Search()
+        self.pages = Pages()
         self.test = Test()
         
     @cherrypy.expose
@@ -187,7 +189,7 @@ if __name__ == '__main__':
             'tools.sessions.on': True,
             # 'tools.sessions.storage_class': cherrypy.lib.sessions.FileSession,
             # 'tools.sessions.storage_path': 'site/sessions',
-            # 'tools.sessions.timeout': 6
+            'tools.sessions.timeout': 6000
         },
         '/login': {
             # 'tools.auth_check.on': True,

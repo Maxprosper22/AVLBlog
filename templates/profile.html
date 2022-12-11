@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% import '/macros/postmacros.html' as macros %}
+{% import '/macros/toast.html' as toast %}
 {% block head %}
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/profile.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
     <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 {% block title %}
@@ -16,7 +19,9 @@
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
                 <div id="about" class="about field">
-                    <a href="friends" class="tablinks">Friends</a>
+                    <div id="shop" class="shop tablinks">
+                        <img class="shop-icon" src="{{origin.origin().innerHTML}}/static/images/icons/shop.svg" alt="" />
+                    </div>
                     <a href="pages" class="tablinks">Pages</a>
                     <a href="pages" class="tablinks">Account</a>
                 </div>
@@ -38,6 +43,8 @@
         <div id="options">
             <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
             <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
+            <a href="friends" class="tablinks">Friends</a>
+            <a href="pages" class="tablinks">Pages</a>
         </div>
         <div id="all-posts" class="posts-cover field">
         {% for post in user.posts %}
@@ -45,13 +52,11 @@
         {% endfor %}
         </div>
         <div id="photos" class="photos field">
+            {% if user.media %}
             <div id="imglist">
-            {% for img in user.images %}
-                <div id="img">
-                    <img class="imgs" src="{{ origin.origin().innerHTML }}/static/{{ img.img_path }}" alt="img.img_title" />
-                </div>
-            {% endfor %}
+                <img class="imgs" id="fetch-imgs" onload="getPhotos(event, {{user.user_id}})" src="{{origin.origin().innerHTML}}/static/images/icons/shop.svg" alt="" />
             </div>
+            {% endif %}
         </div>
         <div id="account" class="account field">
             <h1>Account settings</h1>
@@ -63,21 +68,6 @@
         <nav class="p-nav">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
-                <div id="about" class="about field">
-                {% if cur_user != 'Guest' %}
-                    {% for chat in user.chats %}
-                        {% if chat.chat_type =='p2p' %}
-                            {% if loggedUser in chat.users %}
-                                <a href="/user/{{cur_user}}/chat/{{user.username}}?chatid={{chat.chat_id}}" class="tablinks">Send Message</a>
-                            {% else %}
-                                <a href="" class="tablinks">Add Friend</a>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-                    <a href="friends" class="tablinks">Friends</a>
-                    <a href="pages" class="tablinks">Pages</a>
-                </div>
             </div>
         </nav>
         <div class="head">
@@ -96,6 +86,8 @@
         <div id="options">
             <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
             <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
+            <a href="friends" class="tablinks">Friends</a>
+            <a href="pages" class="tablinks">Pages</a>
         </div>
         
         <div id="all-posts" class="posts-cover field">
@@ -105,19 +97,17 @@
         </div>
                 
         <div id="photos" class="photos field">
+            <!-- <div id="imglist"> -->
+            {% if user.media %}
             <div id="imglist">
-            {% for img in user.images %}
-                <div id="img">
-                    <img class="imgs" src="{{ origin.origin().innerHTML }}/static/{{ img.img_path }}" alt="img.img_title" />
-                </div>
-            {% endfor %}
+                <img class="imgs" id="fetch-imgs" onload="getPhotos(event, {{user.user_id}})" src="{{origin.origin().innerHTML}}/static/images/icons/shop.svg" alt="" />
             </div>
+            {% endif %}
+            <!-- </div> -->
         </div>
         <div id="account" class="account field">
             <h1>Account settings</h1>
         </div>
-
-        <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
     {% endif %}
-<script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
+{{toast.toast()}}
 {% endblock %}

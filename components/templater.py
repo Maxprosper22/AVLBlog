@@ -26,5 +26,8 @@ frds = env.get_template('/friends.html')
 messages = env.get_template('/messages.html')
 makegrp = env.get_template('/makegrp.html')
 pages = env.get_template('/pages.html')
+search = env.get_template('/search.html')
+pages = env.get_template('/pages.html')
+userPages = env.get_template('/user_pages.html')
 
 all_dir = env.get_template('/directory.html')

@@ -137,7 +137,7 @@ class Posts:
                             
                         newfile = Media(
                             media_title=file['name'],
-                            media_path=newImg[1],
+                            media_path=sPath,
                             media_type=file['type'],
                             user_id=lastpost.author.user_id,
                             post_id=lastpost.post_id,
@@ -156,16 +156,36 @@ class Posts:
         
     @cherrypy.expose
     @cherrypy.tools.json_out()
-    def get_post_media(self, postid):
-        getPost = session.query(Post).filter(Post.post_id==postid).first()
+    def get_media(self, postID):
+        postMedia = session.query(Post).filter(Post.post_id==postID).first()
         media_list = []
-        for media in getPost.media_attachment:
+        for media in postMedia.media_attachment:
+            data = open('assets' + media.media_path, 'r')
             mediaData = {
                 'title': media.media_title,
-                'path': media.media_path,
+                'type': media.media_type,
+                'data': data.read(),
                 'post_id': media.post.post_id
             }
-            media_list.append(json.dumps(mediaData))
-        print(media_list)
+            media_list.append(mediaData)
+            print(media.media_path)
+            
+        return media_list
+        
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    def get_photos(self, userID):
+        queryUser = session.query(User).filter(User.user_id==userID).first()
+        media_list = []
+        for media in queryUser.media:
+            data = open('assets' + media.media_path, 'r')
+            mediaData = {
+                'title': media.media_title,
+                'type': media.media_type,
+                'data': data.read(),
+                'post_id': media.post.post_id
+            }
+            media_list.append(mediaData)
+            print(media.media_path)
             
         return media_list

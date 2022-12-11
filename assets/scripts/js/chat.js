@@ -9,9 +9,10 @@ genCover.lastElementChild.scrollIntoView()
 window.addEventListener('load', function(event) { genCover.lastElementChild.scrollIntoView()
 })
 toastCover = document.querySelector('#toast-cover')
-     
+
+msgtxt = document.querySelector('#new-msg')
+
 async function send_msg(event, xlogged, xchatid) {
-    msgtxt = document.querySelector('#new-msg')
     if (msgtxt.value==''){
         toastCover.style.display = 'flex'
         toast.innerHTML = 'Message is empty'
@@ -78,58 +79,6 @@ async function getLastChat(xchatid) {
     if (res.status==200) {
         data = await res.json()
         console.log(data['user'])
-            
-        if (data.user==xlogged) {
-            const topChatElt = document.createElement('div')
-            topChatElt.className = 'chat-rows'
-                
-            const subChatElt = document.createElement('div')
-            subChatElt.setAttribute('class', ['chat-box', 'user-chat'])
-            // subChatElt.classList.add('user-chat')
-            
-            
-            const msgP = document.createElement('p')
-            msgP.innerHTML == data['msg_txt']
-            msgP.setAttribute('classList', 'chat-item')
-            
-            const dateP = document.createElement('p')
-            dateP.innerHTML == data['date']
-            dateP.classList.add('chat-item')
-            dateP.classList.add('msg-date')
-            
-            subChatElt.appendChild(msgP)
-            subChatElt.appendChild(dateP)
-            topChatElt.appendChild(subChatElt)
-            genCover.appendChild(topChatElt)
-            
-            location.reload()
-            subChatElt.scrollIntoView()
-        } else {
-            const topChatElt = document.createElement('div')
-            topChatElt.classList.add('chat-rows')
-            
-            const subChatElt = document.createElement('div')
-            subChatElt.classList.add('chat-box')
-            subChatElt.classList.add('chatmate')
-            
-            topChatElt.appendChild(subChatElt)
-            
-            const msgP = document.createElement('p')
-            msgP.innerHTML == data['msg_txt']
-            msgP.className = 'chat-item'
-            
-            const dateP = document.createElement('p')
-            dateP.className = 'chat-item'
-            dateP.classList.add('msg-date')
-            dateP.innerHTML == data['date']
-            
-            subChatElt.appendChild(msgP)
-            subChatElt.appendChild(dateP)
-            
-            genCover.appendChild(topChatElt)
-            topChatElt.scrollIntoView()
-            location.reload()
-        }
     }
     else {
         toastCover.style.display = 'flex'
@@ -202,3 +151,12 @@ async function closeTxtArea(event) {
         eContainer.style.display = 'none'
     }
 }
+
+async function insertSym(event) {
+    keyName = event.key
+    if (event.key == 'enter') {
+        console.log(event.key)
+        alert(event.key)
+    }
+}
+msgtxt.addEventListener('keypress', insertSym)

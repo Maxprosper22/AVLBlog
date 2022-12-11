@@ -1,0 +1,26 @@
+.page-bar {
+    display: flex;
+    width: 100%;
+    height: 4em;
+    border: 1px solid black;
+}
+.prev {
+    width: 20%;
+    height: 100%;
+    border: 1px solid black;
+}
+.page-bar-head {
+    display: flex;
+    align-items: flex-start;
+    width: 80%;
+    height: 100;
+    border: 1px solid black;
+}
+#page-txt {
+    
+}
+#new-page {}
+.page-list {}
+.page-item {}
+.page-name {}
+.page-options {}

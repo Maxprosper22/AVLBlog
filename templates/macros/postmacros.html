@@ -1,5 +1,4 @@
 {% import '/macros/origin.html' as origin %}
-{% import '/macros/toast.html' as toast %}
 {% macro posthead(xpost, curUser) %}
         <div class="posthead">
             <div class="head-line">
@@ -18,11 +17,11 @@
             <div class="end-line">
                 <span onclick="popmenu(event, '{{cur_user}}', {{xpost.post_id}} )" id="end-span">&#8285;</span>
             </div>
-            <div class="pop-cover">
+            <div onclick="closepop(event)" class="pop-cover">
                 <div class="pop-menu">
                     {% if curUser != 'Guest' %}
                         {% if curUser == xpost.author.username %}
-                            <a href="edit" class="pop-items">
+                            <a  href="edit" class="pop-items">
                                 Edit Post
                             </a>
                             <a href="edit" class="pop-items">
@@ -54,21 +53,12 @@
                         <span>Copy Link</span>
                         <img class="share-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/clip.svg" alt="" />
                     </div>
-                    {{toast.toast()}}
                 </div>
             </div>
         </div>
 {% endmacro %}
     
 {% macro comment(xpost, curUser) %}
-    <!-- <div class="stat">
-        <div class="post-date statspan">
-            <span class="like">{{ xpost.likes|length }} Likes</span>
-        </div>
-        <div class="comments statspan">
-            {{ xpost.post_comments|length }} Comment(s)
-        </div>
-    </div> -->
     <div class="others">
         <div onclick="likepost(event, curUser, xpost.post_id)" id="like-stat" class="like-stat common">
            <img class="li-con" src="{{ origin.origin().innerHTML }}/static/images/icons/like_plain.svg" alt="" />
@@ -82,20 +72,27 @@
     </div>
 {% endmacro %}
 
+{% macro content(xpost, curUser) %}
+    {% if xpost.content %}
+    <div class="userpost">
+        {{ xpost.content }}
+    </div>
+    {% endif %}
+{% endmacro %}
+
+{% macro media(xpost, curUser) %}
+    {% if xpost.media_attachment %}
+    <div class="container" id="md-container">
+        <img onload="getMedia(event, {{xpost.post_id}})" id="media-fetch" src="{{origin.origin().innerHTML}}/static/images/icons/shop.svg" onerror="alert('An error occurred when loading image)" alt="" />
+    </div>
+    {% endif %}
+{% endmacro %}
+
 {% macro post(xpost, curUser) %}
-    <div class="posts">
+    <div onclick="viewPost(event, {{xpost.post_id}})" class="posts">
         {{ posthead(xpost, curUser) }}
-        <div class="userpost">
-            {{ xpost.content }}
-        </div>
-        {% if xpost.media_attachment %}
-        <div class="container">
-            {% for media in xpost.media_attachment %}
-            <img class="p-actual" src="data:{{media.media_type,}};base64{{origin.origin().innerHTML}}/static/{{media.media_path}}" alt="{{media.media_title}}" />
-            {{media.media_path}}
-            {% endfor %}
-        </div>
-        {% endif %}
+        {{ content(xpost, curUser) }}
+        {{ media(xpost, curUser) }}
         {{ comment(xpost, curUser) }}
     </div>
 {% endmacro %}

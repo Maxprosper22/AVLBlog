@@ -1,6 +1,7 @@
 import cherrypy
+from components.templater import search
 
 class Search:
     @cherrypy.expose
     def index(self):
-        pass
+        return search.render()

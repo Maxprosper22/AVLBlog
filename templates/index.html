@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% import '/macros/postmacros.html' as macros %}
 {% import '/macros/origin.html' as origin %}
+{% import '/macros/toast.html' as toast %}
 {% block head %}
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1" name="viewport" />
 <link rel="shortcut icon" href="{{ origin.origin().innerHTML }}/static/images/avatar/d-logo.svg" type="image/x-icon" />
 <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/index.css" type="text/css" media="all" />
 <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
-    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
+<script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 {% block title %}
 AVL - Avenues To Learn
@@ -19,21 +21,25 @@ AVL - Avenues To Learn
     <div id="banner">
         <h1 id="banner-txt">AVL - Avenues To Learn</h1>
     </div>
-    <div class="posts-cover">
-    {% for post in user.posts %}
-    {{ macros.post(post, cur_user) }}
-    {% endfor %}
+    
+    <div id="all-posts" class="posts-cover field">
+        {% for post in user.posts %}
+        {{ macros.post(post, cur_user) }}
+        {% endfor %}
     </div>
+    
 {% elif cur_user == 'Guest' %}
     <div id="banner">
         <h1 id="banner-txt">AVL - Avenues To Learn</h1>
     </div>
-    <div class="posts-cover">
+    
+    <div id="all-posts" class="posts-cover field">
     {% for post in frontPage %}
     {{ macros.post(post, cur_user) }}
     {% endfor %}
     </div>
+    
 {% endif %}
+{{toast.toast()}}
 <script src="{{ origin.origin().innerHTML }}/static/scripts/js/index.js" type="text/javascript" charset="utf-8"></script>
-<script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

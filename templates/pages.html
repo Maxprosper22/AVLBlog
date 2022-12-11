@@ -1,1 +1,28 @@
 {% import '/macros/origin.html' as origin %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pages</title>
+        <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/pages.css" type="text/css" media="all" />
+        <script src="{{origin.origin().innerHTML}}/static/scripts/js/pages.js" type="text/javascript" charset="utf-8"></script>
+    </head>
+    <body>
+        <div class="page-bar">
+            <span onclick="history.back()" class="prev">&#8592;</span>
+            <div class="page-bar-head">
+                <span id="page-txt">Pages</span>
+                <span id="new-page">New page</span>
+            </div>
+        </div>
+        <div class="page-list">
+            {% for page in pages %}
+            <div class="page-item" >
+                <span class="page-name">{{ page.page_name }}</span>
+                <span class="page-options">&#8285;</span>
+            </div>
+            {% endfor %}
+        </div>
+    </body>
+</html>

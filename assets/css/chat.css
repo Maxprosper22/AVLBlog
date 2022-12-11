@@ -84,6 +84,7 @@
     .chat-box {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
         justify-content: space-evenly;
         /* border: 1px solid black; */
         min-height: 4em;
@@ -95,6 +96,9 @@
         position: relative;
         padding: 1% 2%;
         border-radius: 2%;
+    }
+    .chat-item {
+        text-overflow: clip;
     }
     .user-chat {
         display: flex;

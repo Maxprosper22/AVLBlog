@@ -1,4 +1,5 @@
 {% import '/macros/origin.html' as origin %}
+{% import '/macros/toast.html' as toast %}
 <!DOCTYPE html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -9,8 +10,8 @@
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/base.css" type="text/css" media="all" />
     <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
-    <!-- <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/js/post_act..js" type="text/javascript" media="all" /> -->
-    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/js/base.js" type="text/javascript" media="all" />
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/details.js" type="text/javascript"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/base.js" type="text/javascript"></script>
     <title>AVL - {{ postObj.title}}</title>
 </head>
 <body>
@@ -21,7 +22,15 @@
         {{ macros.posthead(postObj, cur_user) }}
 
         <div class="post-content">
-            {{ postObj.content }}
+            {{ macros.content(postObj, cur_user) }}
+        </div>
+        {{ macros.media(postObj, cur_user) }}
+        <div class="touch-scroll">
+            <span onclick="minusSlide(event)" class="slide-btn"></span>
+            <div class="slide-img">
+                <span class="cancel-btn" onclick="closePix(event)">X</span>
+            </div>
+            <span onclick="plusSlide(event)" class="slide-btn"></span>
         </div>
         
         {{ macros.comment(postObj, cur_user) }}
@@ -54,8 +63,9 @@
             <div id="comment-btn" class="act-btn" >Submit</div>
         </div>
     {% endif %}
+    {{toast.toast()}}
     
+    <script src="static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
     <script src="static/scripts/js/details.js" type="text/javascript" charset="utf-8">
     </script>
-    <script src="static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
 </body>

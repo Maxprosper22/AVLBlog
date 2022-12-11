@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
+{% import '/macros/toast.html' as toast %}
+{% import '/macros/origin.html' as origin %}
 {% block head %}
     <link rel="shortcut icon" href="static/images/avatar/d-logo.svg" type="image/x-icon" />
     <link rel="stylesheet" href="static/css/create_post.css" type="text/css" media="all" />
-    <script src="static/pyodide/pyodide.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{origin.origin().innerHTML}}/static/scripts/js/toast.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- <script src="static/pyodide/pyodide.js" type="text/javascript" charset="utf-8"></script> -->
     <!-- <link rel="stylesheet" href="static/pyscript/pyscript.css" /> -->
     <!-- <script defer src="static/pyscript/pyscript.js"></script> -->
     <!-- <py-env>
@@ -48,6 +53,7 @@
             </div>
         </div>
     </form>
+    {{ toast.toast() }}
     <mapro src="static/scripts/py/mapro.py" id="out">
     </mapro>
     <script src="static/scripts/js/createpost.js" type="text/javascript" charset="utf-8" ></script>

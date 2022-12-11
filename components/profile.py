@@ -94,7 +94,7 @@ class Profile:
         
     
     @cherrypy.expose
-    def cteate_group(self):
+    def create_group(self, username):
         return makegrp.render()
         
     @cherrypy.expose

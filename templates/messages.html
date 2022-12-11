@@ -2,12 +2,13 @@
 {% import '/macros/origin.html' as origin %}
 {% block head %}
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/messages.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
 {% endblock %}
 {% block title %}{{ loggedUser.username}} - Messages{% endblock %}
 {% block content %}
 <div class="page-head">
     <span class="head-span">Messages</span>
-    <a href="create-group" class="new-grp">
+    <a href="create_group" class="new-grp">
         New Group
     </a>
 </div>
@@ -30,8 +31,8 @@
                 </div>
                 <div class="menu-cover">
                     <div class="menu-ops">
-                        <span class="ops-item">Mute</span>
-                        <span class="ops-item">Pin</span>
+                        <span class="ops-item pop-item">Mute</span>
+                        <span class="ops-item pop-item">Pin</span>
                     </div>
                 </div>
             </div>
