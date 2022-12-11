@@ -1,0 +1,96 @@
+[33mcommit 8338c5a8383da1e2a3ca61ad91eadfbcb6dc8f6a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Merge: 901e6f5 e31312f
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Mon Dec 12 00:44:57 2022 +0100
+
+    added readme to local repo
+
+[33mcommit 901e6f5fe0b3bc7c85779d982317c7598479c4f9[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Sun Dec 11 09:10:54 2022 +0100
+
+    committed changes made
+
+[33mcommit e31312f8ebbc9952d6562761fa72c2e25c319108[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: mapro22 <68638698+Maxprosper22@users.noreply.github.com>
+Date:   Mon Nov 21 19:42:39 2022 +0100
+
+    Create README.md
+
+[33mcommit 4bea4815716f72e48a5a9ebea628cdbf9c157647[m[33m ([m[1;31mheroku/main[m[33m)[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Mon Nov 21 19:36:19 2022 +0100
+
+    created libraries directory
+
+[33mcommit 19f10e7225234d8947b563d00fd515844ac84d3e[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 07:06:16 2022 +0100
+
+    removed ssl certificate
+
+[33mcommit f8c6ad3d5c369b3fbf77d95ba74a7a559aaa0b0d[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 07:01:02 2022 +0100
+
+    removed python specification
+
+[33mcommit fa3aaf62faaad867709cf0dff9db581c3d89c97c[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:59:46 2022 +0100
+
+    specified python version 3.11
+
+[33mcommit a34232b4927758ffa90bd02bb13ffec785435920[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:58:31 2022 +0100
+
+    specified python version
+
+[33mcommit 9e224dd1856d3fcc0af6dacce22ac4055be34720[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:54:11 2022 +0100
+
+    added port to procfile
+
+[33mcommit f6f85015c21385b7c12bb22c4f24992ce4e0fb27[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:50:51 2022 +0100
+
+    modified app port to int
+
+[33mcommit 433b486559f66098ece9a1fc18e61afc52af81b1[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:41:04 2022 +0100
+
+    modified app port
+
+[33mcommit 7fbf08ed7e061b443179243acafdaa00aba39584[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:37:02 2022 +0100
+
+    modified db.py
+
+[33mcommit 6ebcf67b5b7197bd979832c06136cc50bc3fa433[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Thu Nov 17 06:26:09 2022 +0100
+
+    added remote db imstance
+
+[33mcommit 7d1c6c1ac3794ad37e2090619a021fb4dfbb478e[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Wed Nov 16 21:38:14 2022 +0100
+
+    removed cherrypy_cors from dependencies
+
+[33mcommit e9a26a99a807146a911b50208d3a07fd22fc89f0[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Wed Nov 16 21:19:46 2022 +0100
+
+    added procfile and requiremnets.txt
+
+[33mcommit 4045f7ff1a16919864dae4448c8a39ec00482ca5[m
+Author: Maxprosper22 <maxprosper@gmail.com>
+Date:   Wed Nov 16 11:24:42 2022 +0100
+
+    first commit
