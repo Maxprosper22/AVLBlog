@@ -1,10 +1,10 @@
-async function getSpace(event) {
+async function getSpace(event, curUser) {
     targetSpace = event.target.innerHTML
-    location = `/pages/${targetSpace}`
+    location = `/s/${targetSpace}`
+}
+async function getPage(event, curUser) {
+    targetPage = event.target.innerHTML
+    location = `/p/${targetPage}`
 }
 
 spaceItem = document.querySelectorAll('.space-item')
-
-for (item = 0; item < spaceItem.length; item++) {
-    spaceItem[item].addEventListener('click', getSpace)
-}

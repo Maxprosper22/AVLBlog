@@ -12,7 +12,8 @@ from components.post import Posts
 from components.admin import Admin
 from components.profile import Profile
 from components.search import Search
-from components.pages import Pages
+from components.gen_page import GenPage
+from components.gen_space import GenSpace
 from components.subcomponents.test import Test
 
 from components.subcomponents.usercreation import adduser
@@ -34,7 +35,8 @@ class App:
         self.admin = Admin()
         self.user = Profile()
         self.search = Search()
-        self.pages = Pages()
+        self.p = GenPage()
+        self.s = GenSpace()
         self.test = Test()
         
     @cherrypy.expose

@@ -2,7 +2,7 @@ import cherrypy
 from components.chat import Chats
 from components.account import Account
 from components.edit import Edit
-from components.templater import profile, edit, chat, messages, frds, pages, makegrp
+from components.templater import profile, edit, chat, messages, frds, genPage, makegrp
 from db import User, session, Message, Contact, Chat
 from operator import itemgetter, attrgetter
 
@@ -103,5 +103,5 @@ class Profile:
         
     @cherrypy.expose
     def pages(self, username):
-        return pages.render()
+        return genPage.render()
         

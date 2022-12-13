@@ -1,8 +1,8 @@
 import cherrypy
 from db import session, Chat, User, Message, Page, Post 
-from components.templater import pages
+from components.templater import genPage
 
-class Pages:
+class GenPage:
     @cherrypy.expose
     def index(self):
         if 'username' and  'is_admin' and 'is_authenticated' not in cherrypy.session:
@@ -14,7 +14,7 @@ class Pages:
             cur_user = cherrypy.session['username']
             allpages = session.query(Page)
             
-            return pages.render(cur_user=cur_user, pages=allpages)
+            return genPage.render(cur_user=cur_user, pages=allpages)
             
         elif cherrypy.session['username'] == '':
             cherrypy.session['username'] = 'Guest'
@@ -29,5 +29,5 @@ class Pages:
             loggedUser = session.query(User).filter(User.username == cur_user).first()
             
         
-            return pages.render(cur_user=cur_user, user=loggedUser)
+            return genPage.render(cur_user=cur_user, user=loggedUser)
         

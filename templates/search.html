@@ -13,7 +13,6 @@
         {% include 'nav.html' %}
         <div class="s-cover">
             <span onclick="history.back()" class="prev">&#8592;</span>
-            <span class="s-filter"><img class="sort-icon" src="{{origin.origin().innerHTML}}/static/images/icons/sort-icon.svg" alt="" /></span>
             <div class="search-bar">
                 <input type="text" id="search" />
                 <div class="s-icon-cover">
@@ -26,12 +25,12 @@
             <span>More</span>
         </div>
         <div class="spaces">
-            <div class="space-item">Space 1</div>
-            <div class="space-item">Space 2</div>
-            <div class="space-item">Space 3</div>
-            <div class="space-item">Space 4</div>
-            <div class="space-item">Space 5</div>
-            <div class="space-item">Space 6</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 1</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 2</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 3</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 4</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 5</div>
+            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 6</div>
         </div>
         <script src="{{origin.origin().innerHTML}}/static/scripts/js/search.js" type="text/javascript" charset="utf-8"></script>
     </body>
