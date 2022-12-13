@@ -28,7 +28,9 @@
         <div class="touch-scroll">
             <span onclick="minusSlide(event)" class="slide-btn"></span>
             <div class="slide-img">
-                <span class="cancel-btn" onclick="closePix(event)">X</span>
+                <span class="cancel-btn" onclick="closePix(event)">
+                    <img id="close-icon" src="{{origin.origin().innerHTML}}/static/images/icons/pix-cancel.svg" alt="" />
+                </span>
             </div>
             <span onclick="plusSlide(event)" class="slide-btn"></span>
         </div>

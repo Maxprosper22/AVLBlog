@@ -45,7 +45,7 @@ async function openImage(event) {
     srcElt = allMedia.find(checkSrc)
     console.log(srcElt)
     slideImg.style.backgroundImage = `url(${srcElt.src})`
-    slideImg.style.backgroundSize = '100% 75%'
+    slideImg.style.backgroundSize = 'contain'
     slideImg.style.backgroundPosition = 'center'
     slideImg.style.backgroundRepeat = 'no-repeat'
     scroller.style.display = 'flex'
