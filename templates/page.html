@@ -1,4 +1,5 @@
 {% import '/macros/origin.html' as origin %}
+{% import '/macros/postmacros.html' as postmacro %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,17 +12,23 @@
         <div class="page-bar">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="page-bar-head">
-                <span id="page-txt">Pages</span>
+                <span id="page-txt">{{page.page_name }}</span>
             </div>
         </div>
-        <div class="page-list">
-            {% for page in user.pages %}
-            <div class="page-item" >
-                <span class="page-name">{{ page.page_name }}</span>
-                <span class="page-options">&#8285;</span>
+        <div class="page-head">
+            <div class="cover">
+                <div class="page-avatar">
+                    
+                </div>
             </div>
-            {% endfor %}
+            <div class="page-info">
+                
+            </div>
         </div>
-        <span id="new-page">&#43;</span>
+        <div class="page-tabs">
+            
+        </div>
+        {% for post in page.post %}
+        {% endfor %}
     </body>
 </html>

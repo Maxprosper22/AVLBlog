@@ -1,0 +1,212 @@
+{% import '/macros/origin.html' as origin %}
+{% import '/macros/postmacros.html' as postmacro %}
+{% import '/macros/toast.html' as toast %}
+{% extends 'base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/results.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/toast.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+{% block title %}
+Seaech Results - {{query}}
+{% endblock %}
+{% block content %}
+<div class="p-head">
+    <span onclick="history.back()" class="prev">&#8592;</span>
+    <div class="search-bar">
+        <input type="search" id="search" value="{{query}}" />
+        <div onclick="search(event)"  class="s-icon-cover">
+            <span class="s-bar s-icon" >&#9906;</span>
+        </div>
+    </div>
+</div>
+<div class="tab-hold">
+    <div onclick="resultSwitch(event)" class="all-tab tabs">All</div>
+    <div onclick="resultSwitch(event)" class="users-tab tabs">People</div>
+    <div onclick="resultSwitch(event)" class="posts-tab tabs">Posts</div>
+    <div onclick="resultSwitch(event)" class="pages-tab tabs">Pages</div>
+    <div onclick="resultSwitch(event)" class="spaces-tab tabs">Spaces</div>
+</div>
+
+{% if user_preview %}
+<div class="preview-label">
+    <h3 class="preview-txt">People</h3>
+    <div class="see-btn">
+        See More
+    </div>
+</div>
+{% endif %}
+{% for user in user_preview %}
+<div class="previews">
+    <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{user.avatar}}" alt="" />
+    <a href="/user/{{user.username}}" class="opt-details">
+        <div class="idfier">{{user.username}}</div>
+        <div class="mail">{{ user.email }}</div>
+    </a>
+    {% if cur_user != 'Guest' %}
+        {% for chat in cur_user.chats %}
+            {% if chat.chat_type == 'p2p' %}
+                {% if user in chat.users %}
+                    {% if user != cur_user %}
+                        <div class="tri-dot">Chat</div>
+                    {% endif %}
+                {% else %}
+                <div class="tri-dot">Add</div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% endfor %}
+
+
+{% if page_preview %}
+<div class="preview-label">
+    <h3 class="preview-txt">Pages</h3>
+    <div class="see-btn">
+        See More
+    </div>
+</div>
+{% endif %}
+{% for page in page_preview %}
+<div class="previews">
+    <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{page.avatar}}" alt="" />
+    <a href="pages/{{page.page_name}}" class="opt-details">
+        <span class="idfier">{{page.page_name}}</span>
+        <span class="mail">{{ page.email }}</span>
+    </a>
+    <div class="tri-dot">&#8285;</div>
+</div>
+{% endfor %}
+
+
+{% if space_preview %}
+<div class="preview-label">
+    <h3 class="preview-txt">Spaces</h3>
+    <div class="see-btn">
+        See More
+    </div>
+</div>
+{% endif %}
+{% for space in space_preview %}
+<div class="previews">
+    <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{space.avatar}}" alt="" />
+    <a href="space/{{space.space_name}}" class="opt-details">
+        <div class="idfier">{{space.space_name}}</div>
+        <span class="mail">{{ space.email }}</span>
+    </a>
+    <div class="tri-dot">&#8285;</div>
+</div>
+{% endfor %}
+      
+{% if post_preview %}
+<div class="preview-label">
+    <h3 class="preview-txt">Posts</h3>
+    <div class="see-btn">
+        See More
+    </div>
+</div>
+{% endif %}
+    
+{% for post in post_preview %}
+    <a href="/posts/post/{{post.post_id}}" class="posts-match">
+        {{ postmacro.post(post, cur_user) }}
+    </a>
+{% endfor %}
+
+{% if matches['users'] %}
+    <div class="usermatch match match-label">
+        People
+    </div>
+    {% for usermatch in matches['users'] %}
+    <div class="previews usermatch match">
+        <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{usermatch.avatar}}" alt="" />
+        <a href="user/{{usermatch.username}}" class="opt-details">
+            <div class="idfier">{{usermatch.username}}</div>
+            <div class="mail">{{ usermatch.email }}</div>
+        </a>
+        {% if cur_user != 'Guest' %}
+        {% for chat in cur_user.chats %}
+            {% if usermatch in chat.users %}
+            <div class="tri-dot">Chat</div>
+            {% else %}
+            <div class="tri-dot">Add</div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="404 usermatch match">
+        No Result
+    </div>
+{% endif %}
+
+{% if matches['pages'] %}
+    <div class="pagematch match match-label">
+        Pages
+    </div>
+    {% for pagematch in matches['pages'] %}
+    <div class="previews pagematch match">
+        <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{pagematch.avatar}}" alt="" />
+        <a href="pages/{{pagematch.page_name}}" class="opt-details">
+            <div class="idfier">{{pagematch.page_name}}</div>
+            <div class="mail">{{ pagematch.email }}</div>
+        </a>
+        {% if cur_user != 'Guest' %}
+        {% for chat in cur_user.chats %}
+            {% if usermatch in chat %}
+            <div class="tri-dot">Chat</div>
+            {% else %}
+            <div class="tri-dot">Add</div>
+            {% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="404 pagematch match">
+        No Result
+    </div>
+{% endif %}
+
+{% if matches['spaces'] %}
+    <div class="spacematch match match-label">
+        Spaces
+    </div>
+    {% for spacematch in matches['spaces'] %}
+    <div class="previews spacematch match">
+        <img class="preview-avatar" src="{{origin.origin().innerHTML}}/static/{{spacematch.avatar}}" alt="" />
+        <a href="space/{{spacematch.space_name}}" class="opt-details">
+            <div class="idfier">{{spacematch.space_name}}</div>
+            <div class="mail">{{ spacematch.email }}</div>
+        </a>
+        <div class="tri-dot">&#8285;</div>
+    </div>
+    {% endfor %}
+{% else %}
+    <div class="404 spacematch match">
+        No Result
+    </div>
+{% endif %}
+
+{% if matches['posts'] %}
+    <div class="postmatch match match-label">
+        Posts
+    </div>
+    {% for postmatch in matches['posts'] %}
+    <a href="/posts/post/{{postmatch.post_id}}" class="postmatch match">
+        {{postmacro.post(postmatch, cur_user)}}
+    </a>
+    {% endfor %}
+{% else %}
+    <div class="404 postmatch match">
+        No Result
+    </div>
+{% endif %}
+{{toast.toast()}}
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/results.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

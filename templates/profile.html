@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-{% import '/macros/postmacros.html' as macros %}
+{% import '/macros/postmacros.html' as postmacro %}
 {% import '/macros/toast.html' as toast %}
 {% block head %}
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/profile.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/profilehead.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/post_act.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
-    <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
     <script src="{{ origin.origin().innerHTML }}/static/scripts/js/post_act.js" type="text/javascript" charset="utf-8"></script>
     <script src="{{ origin.origin().innerHTML }}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}
 {% block title %}
-    {{ user.username }}
+    Profile - {{ user.username }}
 {% endblock %}
 
 {% block content %}
@@ -18,37 +18,21 @@
         <nav class="p-nav">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
-                <div id="about" class="about field">
+                <div id="" class="field">
                     <div id="shop" class="shop tablinks">
                         <img class="shop-icon" src="{{origin.origin().innerHTML}}/static/images/icons/shop.svg" alt="" />
-                    </div>
-                    <a href="pages" class="tablinks">Pages</a>
-                    <a href="pages" class="tablinks">Account</a>
+                    </div>>
                 </div>
             </div>
         </nav>
-        <div class="head">
-            <div class="cover">
-                <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
-            </div>
-            <div class="avatar-cover">
-                <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
-            </div>
-            
-            <div id="detail">
-                <h1>{{ user.username }}</h1>
-                <p>{{ user.userid }}</p>
-            </div>
-        </div>
+        {% include '/macros/profilehead.html' %}
         <div id="options">
-            <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
-            <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
-            <a href="friends" class="tablinks">Friends</a>
-            <a href="pages" class="tablinks">Pages</a>
+            <div onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</div>
+            <div onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</div>
         </div>
         <div id="all-posts" class="posts-cover field">
         {% for post in user.posts %}
-            {{ macros.post(post, cur_user) }}
+            {{ postmacro.post(post, cur_user) }}
         {% endfor %}
         </div>
         <div id="photos" class="photos field">
@@ -70,29 +54,15 @@
             <div class="p-head-nav">
             </div>
         </nav>
-        <div class="head">
-            <div class="cover">
-                <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
-            </div>
-            <div class="avatar-cover">
-                <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
-            </div>
-            
-            <div id="detail">
-                <h1>{{ user.username }}</h1>
-                <p>{{ user.userid }}</p>
-            </div>
-        </div>
+        {% include 'macros/profilehead.html' %}
         <div id="options">
-            <a onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</a>
-            <a onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</a>
-            <a href="friends" class="tablinks">Friends</a>
-            <a href="pages" class="tablinks">Pages</a>
+            <div onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</div>
+            <div onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</div>
         </div>
         
         <div id="all-posts" class="posts-cover field">
             {% for post in user.posts %}
-            {{ macros.post(post, cur_user) }}
+            {{ postmacro.post(post, cur_user) }}
             {% endfor %}
         </div>
                 
@@ -110,4 +80,5 @@
         </div>
     {% endif %}
 {{toast.toast()}}
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
 {% endblock %}

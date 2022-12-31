@@ -11,6 +11,7 @@
     margin: 0 auto;
     z-index: 5;
     /* border: 1px solid black; */
+    font-family: Courier, 'Courier New';
 }
 #toast {
     display: flex;

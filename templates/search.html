@@ -1,37 +1,35 @@
+{% extends 'base.html' %}
 {% import '/macros/origin.html' as origin %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/nav.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/footer.css" type="text/css" media="all" />
-        <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/search.css" type="text/css" media="all" />
-        <title>Search</title>
-    </head>
-    <body>
-        {% include 'nav.html' %}
-        <div class="s-cover">
-            <span onclick="history.back()" class="prev">&#8592;</span>
-            <div class="search-bar">
-                <input type="text" id="search" />
-                <div class="s-icon-cover">
-                    <span class="s-bar s-icon" >&#9906;</span>
-                </div>
+{% import '/macros/toast.html' as toast %}
+{% block head %}
+    <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/search.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{origin.origin().innerHTML}}/static/css/toast.css" type="text/css" media="all" />
+    <script src="{{origin.origin().innerHTML}}/static/scripts/js/toast.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{origin.origin().innerHTML}}/static/scripts/libraries/anime-master/lib/anime.min.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+{% block title %}Search{% endblock %}
+{% block content %}
+    <div class="s-cover">
+        <span onclick="history.back()" class="prev">&#8592;</span>
+        <div class="search-bar">
+            <input type="text" id="search" />
+            <div onclick="search(event)"  class="s-icon-cover">
+                <span class="s-bar s-icon" >&#9906;</span>
             </div>
         </div>
-        <div class="space-tag">
-            <span>Spaces</span>
-            <span>More</span>
-        </div>
-        <div class="spaces">
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 1</div>
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 2</div>
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 3</div>
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 4</div>
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 5</div>
-            <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 6</div>
-        </div>
-        <script src="{{origin.origin().innerHTML}}/static/scripts/js/search.js" type="text/javascript" charset="utf-8"></script>
-    </body>
-</html>
+    </div>
+    <div class="space-tag">
+        <span class="space-tag-elt">Spaces</span>
+        <span class="space-tag-elt">More</span>
+    </div>
+    <div class="spaces">
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 1</div>
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 2</div>
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 3</div>
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 4</div>
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 5</div>
+        <div onclick="getSpace(event, '{{cur_user}}')" class="space-item">Space 6</div>
+    </div>
+    {{toast.toast()}}
+    <script src="{{origin.origin().innerHTML}}/static/scripts/js/search.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

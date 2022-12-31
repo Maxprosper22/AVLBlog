@@ -1,8 +1,8 @@
 import cherrypy
 import os, time, socket
 import bcrypt
-from components.templater import index, admin_page, req400, managePosts, manageUsers, all_dir, logIn, signUp, chat
-from db import User, Post, session, Comment
+from components.templater import index, admin_page, req400, managePosts, manageUsers, all_dir, logIn, signUp, chat, genPage, genSpace
+from db import User, Post, session, Comment, Page, Space
 from sqlalchemy import exc
 from components.subcomponents.encrypt import encrypt_pwd, verify
 import smtplib
@@ -12,8 +12,8 @@ from components.post import Posts
 from components.admin import Admin
 from components.profile import Profile
 from components.search import Search
-from components.gen_page import GenPage
-from components.gen_space import GenSpace
+from components.page import GenPage
+from components.space import GenSpace
 from components.subcomponents.test import Test
 
 from components.subcomponents.usercreation import adduser
@@ -35,8 +35,8 @@ class App:
         self.admin = Admin()
         self.user = Profile()
         self.search = Search()
-        self.p = GenPage()
-        self.s = GenSpace()
+        self.page = GenPage()
+        self.space = GenSpace()
         self.test = Test()
         
     @cherrypy.expose
@@ -183,6 +183,37 @@ class App:
             session.add(comment)
             session.commit()
             raise cherrypy.HTTPRedirect(f'/posts/post/{postid}')
+            
+    @cherrypy.expose
+    def pages(self):
+        if 'username' and  'is_admin' and 'is_authenticated' not in cherrypy.session:
+            cherrypy.session['username'] = 'Guest'
+            cherrypy.session['is_admin'] = False
+            cherrypy.session['is_authenticated'] = False
+            
+            print('User: ', cherrypy.session['username'], 1)
+            cur_user = cherrypy.session['username']
+            allpages = session.query(Page)
+            
+            return genPage.render(cur_user=cur_user, pages=allpages)
+            
+        elif cherrypy.session['username'] == '':
+            cherrypy.session['username'] = 'Guest'
+            
+            print('User: ', cherrypy.session['username'], 2)
+            
+        elif cherrypy.session['username'] != 'Guest':
+            print(cherrypy.session['username'])
+            
+            allpages = session.query(Page)
+            cur_user = cherrypy.session['username']
+            loggedUser = session.query(User).filter(User.username == cur_user).first()
+            
+            return genPage.render(cur_user=cur_user, user=loggedUser)
+            
+    @cherrypy.expose
+    def spaces(self):
+        return genSpace.render()
 
 if __name__ == '__main__':
     conf = {
@@ -247,6 +278,9 @@ if __name__ == '__main__':
 		'/user/user/username/static': {
 		    'tools.staticdir.on': True,
 		    'tools.staticdir.dir': 'assets'
+		},
+		'/search': {
+		    'tools.sessions.on': True
 		}
     }
    

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% import '/macros/postmacros.html' as macros %}
+{% import '/macros/postmacros.html' as postmacro %}
 {% import '/macros/origin.html' as origin %}
 {% import '/macros/toast.html' as toast %}
 {% block head %}
@@ -23,8 +23,8 @@ AVL - Avenues To Learn
     </div>
     
     <div id="all-posts" class="posts-cover field">
-        {% for post in user.posts %}
-        {{ macros.post(post, cur_user) }}
+        {% for post in user.followed_posts() %}
+        {{ postmacro.post(post, cur_user) }}
         {% endfor %}
     </div>
     
@@ -35,7 +35,7 @@ AVL - Avenues To Learn
     
     <div id="all-posts" class="posts-cover field">
     {% for post in frontPage %}
-    {{ macros.post(post, cur_user) }}
+    {{ postmacro.post(post, cur_user) }}
     {% endfor %}
     </div>
     

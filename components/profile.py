@@ -2,7 +2,7 @@ import cherrypy
 from components.chat import Chats
 from components.account import Account
 from components.edit import Edit
-from components.templater import profile, edit, chat, messages, frds, genPage, makegrp
+from components.templater import profile, edit, chat, messages, frds, genPage, makegrp, about
 from db import User, session, Message, Contact, Chat
 from operator import itemgetter, attrgetter
 
@@ -93,6 +93,18 @@ class Profile:
         return frds.render(cur_user=curUser, loggedUser=queryUser)
         
     
+    @cherrypy.expose
+    def about(self, username):
+        return about.render()
+    
+    @cherrypy.expose
+    def follow(self, username, xid):
+        curUser = session.query(User).filter(User.username==username).first()
+        toFollow = session.query(User).filter(User.user_id==xid).first()
+        followinfo = curUser.follow(toFollow)
+        
+        return followinfo
+        
     @cherrypy.expose
     def create_group(self, username):
         return makegrp.render()

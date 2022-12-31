@@ -89,7 +89,7 @@
 {% endmacro %}
 
 {% macro post(xpost, curUser) %}
-    <div onclick="viewPost(event, {{xpost.post_id}})" class="posts">
+    <div class="posts">
         {{ posthead(xpost, curUser) }}
         {{ content(xpost, curUser) }}
         {{ media(xpost, curUser) }}

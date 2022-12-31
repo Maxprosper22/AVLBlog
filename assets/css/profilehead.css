@@ -1,0 +1,188 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+.head{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    height: 25em;
+    width: 100vw;
+    /* padding: 1%; */
+    /* background-color: green; */
+}
+.cover {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    height: 40%;
+    width: 100%;
+    position: static;
+    /* background-color: blue; */
+    overflow: visible;
+}
+.cover-img {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    position: static;
+    z-index: 1.5;
+}
+.avatar-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 4%;
+    min-height: 6.5em;
+    min-width: 6.5em;
+    width: 6.5em;
+    position: relative;
+    bottom: 51%;
+    z-index: 1.5;
+    overflow: hidden;
+    border: 2px solid rgb(0, 128, 128);
+    border-radius: 50%;
+}
+.p-avatar {
+    background-color: white;
+}
+#avatar-edit {
+    display: none;
+    width: 20%;
+    /* z-index: 1; */
+    /* position: relative; */
+    /* bottom: 10%; */
+    /* left: 60%; */
+    /* bottom: 20%; */
+    background-color: white;
+    border: 1px solid black;
+}
+#detail {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    margin: 1% 0;
+    margin-top: 2.5%;
+    height: 60%;
+    min-height: 50%;
+    width: 100%;
+    position: relative;
+    padding: 1%;
+    /* border: 1px solid black; */
+}
+#detail>h1, p {
+    margin: 0;
+}
+.name-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1%;
+    font-size: 1.2em;
+    height: 5em;
+    width: 100%;
+    /* border: 1px solid black; */
+}
+.name-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 90%;
+    width: 70%;
+    /* border: 1px solid black; */
+}
+.full-name {
+    display: flex;
+    font-size: 1.2em;
+    font-weight: bold;
+    /* border: 1px solid black; */
+}
+.username {
+    color: rgb(0, 128, 128);
+    font-size: .8em;
+    font-style: italic;
+    font-weight: bold;
+}
+.follows {
+    display: flex;
+    justify-content: space-between;
+    align-content: flex-start;
+    align-items: center;
+    width: 80%;
+    font-size: .7em;
+    font-stretch: extra-condensed;
+    /* font-weight: bold; */
+    /* border: 1px solid black; */
+}
+.follow-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 45%;
+    font-weight: bold;
+    /* border: 1px solid black; */
+}
+.add-frd {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 5em;
+    height: 3em;
+    font-size: .7em;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 128, 128);
+    padding: 0;
+    /* border: 1px solid black; */
+}
+.user-bio {
+    text-align: center;
+    /* font-size: 1.2em; */
+    font-weight: bold;
+    /* margin: 1%; */
+    /* border: 1px solid black; */
+    overflow: auto;
+}
+.more-details {
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    align-items: center;
+    align-content: flex-start;
+    width: 100%;
+    height: 4em;
+    /* border: 1px solid black; */
+}
+.about {
+    display: flex;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* height: 3em; */
+    /* width: 100%; */
+}
+.more-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 3em;
+    width: 5em;
+    margin: 0 2%;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: white;
+    color: rgb(0, 128, 138);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    border: 1px solid rgb(0, 128, 128, .2);
+}
+.more-links:active {
+    background-color: rgb(0, 128, 128, .2);
+}

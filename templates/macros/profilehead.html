@@ -1,0 +1,58 @@
+<div class="head">
+    <div class="cover">
+        <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
+        <div class="avatar-cover">
+            <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+        </div>
+    </div>
+    
+    <div id="detail">
+        <div class="name-action">
+            <div class="name-cover">
+                <p class="full-name">{{ user.firstname }} {{ user.lastname }}</p>
+                <p class="username">@{{ user.username}}</p>
+                <div class="follows">
+                    <div class="following follow-item">
+                        <p>{{user.followed|length}}</p>
+                        <p>Followed</p>
+                    </div>
+                    <div class="followers follow-item">
+                        <p>{{user.followers|length}}</p>
+                        <p>Followers</p>
+                    </div>
+                </div>
+            </div>
+            {% if cur_user != 'Guest' %}
+                {% if user.followers %}
+                    {% for follower in user.followers %}
+                        {% if follower.username == cur_user %}
+                            <div class="add-frd">
+                                Chat
+                            </div>
+                        {% else %}
+                            <div onclick="follow(event, '{{cur_user}}, {{user.user_id}})" class="add-frd">
+                                Follow
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% elif cur_user != user.username %}
+                    <div class="add-frd">
+                        Follow
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+        <p class="user-bio">Bio - <br />"{{ user.bio }}"</p>
+        <div class="more-details">
+            <a href="about" class="about more-links">
+                About
+            </a>
+            <a href="edit" class="edit more-links">
+                Edit
+            </a>
+            <a href="pages" class="pages more-links">
+                Pages
+            </a>
+        </div>
+    </div>
+</div>

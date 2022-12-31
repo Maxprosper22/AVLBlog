@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime, ForeignKey, Boolean, Table
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy_json import mutable_json_type
+
 
 from datetime import datetime
 
@@ -34,21 +37,35 @@ association_table = Table(
     Column('user_id', ForeignKey('users.user_id'), primary_key=True),
     Column('chat_id', ForeignKey('chats.chat_id'), primary_key=True)
 )
-
-follows_table = Table(
+followers = Table(
+    'follows',
+    Base.metadata,
+    Column('follower_id', Integer, ForeignKey('users.user_id'), primary_key=True),
+    Column('followed_id', Integer, ForeignKey('users.user_id'), primary_key=True)
+)
+page_follows = Table(
     'follows_table',
     Base.metadata,
     Column('user_id', ForeignKey('users.user_id'), primary_key=True),
     Column('page_id', ForeignKey('pages.page_id'), primary_key=True)
+)
+spaces_table = Table(
+    'spaces_table',
+    Base.metadata,
+    Column('user_id', ForeignKey('users.user_id'), primary_key=True),
+    Column('space_id', ForeignKey('spaces.space_id'), primary_key=True)
 )
 
 class User(Base):
     __tablename__ = 'users'
     
     user_id = Column(Integer, primary_key=True)
+    firstname = Column(String(50))
+    lastname = Column(String(50))
     username = Column(String(), unique=True, nullable=False)
     password = Column(String(), nullable=False)
     email = Column(String(), nullable=False)
+    bio = Column(Text)
     admin_user = Column(Boolean, default=False)
     is_active = Column(Boolean, unique=False, default=False)
     avatar = Column(Text, nullable=True)
@@ -61,8 +78,46 @@ class User(Base):
     contact = relationship('Contact', back_populates='user')
     chats = relationship('Chat', secondary=association_table, back_populates="users")
     pages = relationship('Page', back_populates='user')
-    following = relationship('Page', secondary=follows_table, back_populates="followers")
+    spaces = relationship('Space', back_populates='user')
+    followed_pages = relationship('Page', secondary=page_follows, back_populates="followers")
+    followed = relationship(
+        'User',
+        secondary=followers,
+        primaryjoin=user_id==followers.c.follower_id,
+        secondaryjoin=user_id==followers.c.followed_id,
+        backref='followers'
+    )
+    config = Column(mutable_json_type(dbtype=JSONB, nested=True))
     
+    def follow(self, user):
+        if user != self:
+            if not self.is_following(user):
+                self.followed.append(user)
+                session.commit()
+                return f'You now follow {user.username}'
+            else:
+                return f'Cannot follow self'
+        else:
+            return f'You already follow {user.username}'
+    
+    def unfollow(self, user):
+        if user != self:
+            if self.is_following(user):
+                self.followed.remove(user)
+                session.commit()
+    
+    def is_following(self, user):
+        checkUser = session.query(User).filter(User.username==user.username).first()
+        if checkUser in self.followed:
+            return True
+        else:
+            return False
+        
+    def followed_posts(self):
+        followedPosts = session.query(Post).join(followers, (followers.c.followed_id == Post.user_id)).filter(followers.c.follower_id==self.user_id)
+        ownPost = session.query(Post).filter(Post.user_id==self.user_id)
+        return followedPosts.union(ownPost).order_by(Post.date_created.desc())
+        
     def __repr__(self):
         return f"<User {self.username}>"
 
@@ -75,7 +130,24 @@ class Page(Base):
     page_name = Column(Text, nullable=False)
     user = relationship('User', back_populates='pages')
     posts = relationship('Post', back_populates='page')
-    followers = relationship('User', secondary=follows_table, back_populates="following")
+    followers = relationship('User', secondary=page_follows, back_populates="followed_pages")
+    date_created = Column(DateTime, default=get_date())
+    
+    def __repr__(self):
+        return f"<Page: {self.page_name}, created on :{self.date_cteated.strft('%H:%M %a|%m|%d')}>"
+        return f"<User {self.username}>"
+
+class Space(Base):
+    __tablename__ = 'spaces'
+    
+    space_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('users.user_id'))
+    post_id = Column(Integer, ForeignKey('posts.post_id'))
+    space_name = Column(Text, nullable=False)
+    user = relationship('User', back_populates='spaces')
+    posts = relationship('Post', back_populates='space')
+    members = relationship('User', secondary=spaces_table, back_populates="spaces")
+    # admin = 
     date_created = Column(DateTime, default=get_date())
     
     def __repr__(self):
@@ -159,6 +231,7 @@ class Post(Base):
     date_created = Column(DateTime, default=get_date)
     user_id = Column(Integer, ForeignKey('users.user_id'))
     page = relationship('Page', back_populates='posts')
+    space = relationship('Space', back_populates='posts')
     author = relationship('User', back_populates='posts')
     likes = relationship('Like', back_populates='post')
     post_comments = relationship('Comment', back_populates='post')
@@ -190,6 +263,8 @@ class Comment(Base):
     post = relationship('Post', back_populates='post_comments')
     user = relationship('User', back_populates='authored_comments')
     comment = Column(Text, nullable=False)
+    parent_id = Column(Integer, ForeignKey('comments.comm_id'))
+    replies = relationship('Comment', remote_side=[comm_id], backref='parent')
     date_created = Column(DateTime, default=get_date)
     
     def __repr__(self):
