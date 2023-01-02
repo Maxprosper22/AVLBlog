@@ -3,7 +3,7 @@ from components.chat import Chats
 from components.account import Account
 from components.edit import Edit
 from components.templater import profile, edit, chat, messages, frds, genPage, makegrp, about
-from db import User, session, Message, Contact, Chat
+from db import User, session, Message, Contact, Chat, Post
 from operator import itemgetter, attrgetter
 
 @cherrypy.popargs('username')
@@ -20,29 +20,36 @@ class Profile:
             cherrypy.session['is_authenticated'] = False
             cherrypy.session['is_admin'] = False
             viewedUser = session.query(User).filter(User.username==cherrypy.request.params['username']).first()
+            userPosts = session.query(Post).filter(Post.author==viewedUser).order_by(Post.date_created.desc())
             curUser = cherrypy.session['username']
             
-            return profile.render(cur_user=curUser, user=viewedUser)
+            return profile.render(cur_user=curUser, user=viewedUser, posts=userPosts)
         
         elif cherrypy.session['username'] == '':
             cherrypy.session['username'] = 'Guest'
             curUser = cherrypy.session['username']
             viewedUser = session.query(User).filter(User.username==cherrypy.request.params['username']).first()
+            userPosts = session.query(Post).filter(Post.author==viewedUser).order_by(Post.date_created.desc())
 
-            return profile.render(user=viewedUser, cur_user=curUser)
+            return profile.render(user=viewedUser, cur_user=curUser, posts=userPosts)
             
         elif cherrypy.session['username'] != 'Guest':
             curUser = cherrypy.session['username']
             loggedUser = session.query(User).filter(User.username==curUser).first()
             viewedUser = session.query(User).filter(User.username==cherrypy.request.params['username']).first()
+            userPosts = session.query(Post).filter(Post.author==viewedUser).order_by(Post.date_created.desc())
+            
             print('Quite close to the last one')
-            return profile.render(user=viewedUser, cur_user=curUser, loggedUser=loggedUser)
+            return profile.render(user=viewedUser, cur_user=curUser, loggedUser=loggedUser, posts=userPosts)
                 
         curUser = cherrypy.session['username']
         viewedUser = session.query(User).filter(User.username==cherrypy.request.params['username']).first()
+        userPosts = session.query(Post).filter(Post.author==viewedUser).order_by(Post.date_created.desc())
+            
         loggedUser = session.query(User).filter(User.username==curUser).first()
         print('There very last one')
-        return profile.render(user=viewedUser, cur_user=curUser, loggedUser=loggedUser)
+        
+        return profile.render(user=viewedUser, cur_user=curUser, loggedUser=loggedUser, posts=userPosts)
         
             
     @cherrypy.expose
@@ -95,13 +102,14 @@ class Profile:
     
     @cherrypy.expose
     def about(self, username):
-        return about.render()
+        user = session.query(User).filter(User.username==username).first()
+        return about.render(user=user)
     
     @cherrypy.expose
     def follow(self, username, xid):
         curUser = session.query(User).filter(User.username==username).first()
         toFollow = session.query(User).filter(User.user_id==xid).first()
-        followinfo = curUser.follow(toFollow)
+        followinfo = curUser.follow(toFollow.username)
         
         return followinfo
         

@@ -89,26 +89,41 @@ class User(Base):
     )
     config = Column(mutable_json_type(dbtype=JSONB, nested=True))
     
-    def follow(self, user):
-        if user != self:
-            if not self.is_following(user):
-                self.followed.append(user)
+    def follow(self, username):
+        try:
+            checkUser = session.query(User).filter(User.username==username).first()
+        except Exception as e:
+            raise e
+        if checkUser != self:
+            if not self.is_followed(username):
+                self.followed.append(checkUser)
                 session.commit()
-                return f'You now follow {user.username}'
+                return f'You now follow {checkUser.username}'
             else:
                 return f'Cannot follow self'
         else:
-            return f'You already follow {user.username}'
+            return f'You already follow {checkUser.username}'
     
-    def unfollow(self, user):
-        if user != self:
-            if self.is_following(user):
-                self.followed.remove(user)
+    def unfollow(self, username):
+        try:
+            checkUser = session.query(User).filter(User.username==username).first()
+        except Exception as e:
+            raise e
+        if checkUser != self:
+            if self.is_followed(username):
+                self.followed.remove(checkUser)
                 session.commit()
     
+    def is_followed(self, user):
+        checkFollowed = session.query(User).filter(User.username==user).first()
+        if checkFollowed in self.followed:
+            return True
+        else:
+            return False
+    
     def is_following(self, user):
-        checkUser = session.query(User).filter(User.username==user.username).first()
-        if checkUser in self.followed:
+        checkFollower = session.query(User).filter(User.username==user).first()
+        if checkFollower in self.followers:
             return True
         else:
             return False
@@ -134,7 +149,7 @@ class Page(Base):
     date_created = Column(DateTime, default=get_date())
     
     def __repr__(self):
-        return f"<Page: {self.page_name}, created on :{self.date_cteated.strft('%H:%M %a|%m|%d')}>"
+        return f"<Page: {self.page_name}, created on :{self.date_created.strft('%H:%M %a|%m|%d')}>"
         return f"<User {self.username}>"
 
 class Space(Base):
@@ -151,7 +166,7 @@ class Space(Base):
     date_created = Column(DateTime, default=get_date())
     
     def __repr__(self):
-        return f"<Page: {self.page_name}, created on :{self.date_cteated.strft('%H:%M %a|%m|%d')}>"
+        return f"<Page: {self.page_name}, created on :{self.date_created.strft('%H:%M %a|%m|%d')}>"
 
 class Chat(Base):
     __tablename__ = 'chats'
@@ -236,6 +251,24 @@ class Post(Base):
     likes = relationship('Like', back_populates='post')
     post_comments = relationship('Comment', back_populates='post')
     media_attachment = relationship('Media', back_populates='post')
+    
+    def like_action(self, username):
+        checkLike = session.query(User).filter(User.username==username).first()
+        
+        if is_liked(checkLike):
+            newLike = Like(post_id=self.post_id, user_id=checkLike.user_id, post=self, user=checkLike)
+            session.add(newLike)
+            session.commit()
+            
+        else:
+            unlike = session.query(Like).filter(Like.user==checkLike).first()
+            self.likes.remove(unlike)
+    
+    def is_liked(self, user):
+        if user in self.likes.user:
+            return False
+        else:
+            return True
     
     def __repr__(self):
         return f"<Posts {self.post_id}: {self.author.username}>"

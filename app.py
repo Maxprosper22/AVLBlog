@@ -59,7 +59,7 @@ class App:
             cur_user = cherrypy.session['username']
             loggedUser = session.query(User).filter(User.username == cur_user).first()
             
-            front_page = session.query(Post)
+            front_page = session.query(Post).order_by(Post.date_created.desc())
             
             return index.render(sess=cherrypy.session, cur_user=cur_user, user=loggedUser,  frontPage=front_page)
             
@@ -67,7 +67,8 @@ class App:
         print('Admin: ', cherrypy.session['is_admin'])
         print('Authenticated: ', cherrypy.session['is_authenticated'])
         
-        front_page = session.query(Post)
+        front_page = session.query(Post).order_by(Post.date_created.desc())
+        
         cur_user = cherrypy.session['username']
         return index.render(sess=cherrypy.session, cur_user=cur_user, frontPage=front_page)
         

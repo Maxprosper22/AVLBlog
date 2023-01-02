@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/about.css" type="text/css" media="all" />
+{% endblock %}
+{% block title %}
+About - {{ user }}
+{% endblock %}
+{% block content %}
+<div class="head">
+    <div class="avatar-cover">
+        <img class="avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="{{user.username}}" />
+    </div>
+    <div class="desc">
+        <span class="fullname">
+            <p class="first-name">{{user.firstname}}</p>
+            <p class="last-name">{{user.lastname}}</p>
+        </span>
+        <span class="username">
+            @{{user.username}}
+        </span>
+    </div>
+</div>
+<div class="follows">
+    <div class="followed more-links">
+        <p>{{user.followed|length}}</p>
+        <p>Followed</p>
+    </div>
+    <div class="followers more-links">
+        <p>{{user.followers|length}}</p>
+        <p>Followers</p>
+    </div>
+</div>
+<div class="bio">
+    <h3 class="bio-head">Bio</h3>
+    <p class="bio-txt">{{user.bio}}</p>
+    <p class="read-more">More</p>
+</div>
+<div class="job">
+    <h3 class="job-head">Employment</h3>
+    <div class="cur-job"></div>
+    <div class="work-history">
+        <p>Work history</p>
+    </div>
+</div>
+<div class="skills">
+    <h3 class="skill-head">Skills</h3>
+    <div class="skill-set"></div>
+</div>
+<div class="location">
+    <h3 class="locale-head">Location</h3>
+    <div class="locale-info">
+        <div class="cur-locale"></div>
+        <div class="home-locale"></div>
+    </div>
+</div>
+<div class="education"></div>
+<div class="engagements"></div>
+<script src="{{ origin.origin().innerHTML }}/static/scripts/js/about.js" type="text/javascript" charset="utf-8"></script>
+{% endblock %}

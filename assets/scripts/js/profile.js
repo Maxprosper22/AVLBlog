@@ -56,8 +56,23 @@ async function getPhotos(event, userID) {
 }
 
 async function follow(event, curUser, xUser) {
-    followX = await fetch(`follow?${curUser}&${xUser}`)
+    followX = await fetch(`follow?username=${curUser}&xid=${xUser}`)
     
     res = await followX
-    console.log(res)
+    console.log(res.body)
+}
+
+coverImg = document.querySelector('.cover-img')
+profileImg = document.querySelector('.p-avatar')
+viewDiv = document.querySelector('.view')
+viewImg = document.querySelector('.view-img')
+
+async function pixView(event) {
+    viewDiv.style.display = 'flex'
+    viewImg.src = event.target.src
+}
+async function changePix(event) {}
+
+async function closePix(event) {
+    viewDiv.style.display = 'none'
 }

@@ -15,7 +15,7 @@
 
 {% block content %}
     {%- if user.username == cur_user -%}
-        <nav class="p-nav">
+        <!-- <nav class="p-nav">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
                 <div id="" class="field">
@@ -24,14 +24,14 @@
                     </div>>
                 </div>
             </div>
-        </nav>
+        </nav> -->
         {% include '/macros/profilehead.html' %}
         <div id="options">
             <div onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</div>
             <div onclick="tabswitch(event)"  id="photos-tab" class="tablinks">Photos</div>
         </div>
         <div id="all-posts" class="posts-cover field">
-        {% for post in user.posts %}
+        {% for post in posts %}
             {{ postmacro.post(post, cur_user) }}
         {% endfor %}
         </div>
@@ -49,11 +49,11 @@
         <script src="{{ origin.origin().innerHTML }}/static/scripts/js/profile.js" type="text/javascript" charset="utf-8"></script>
         
     {%- elif user.username != cur_user -%}
-        <nav class="p-nav">
+        <!-- <nav class="p-nav">
             <span onclick="history.back()" class="prev">&#8592;</span>
             <div class="p-head-nav">
             </div>
-        </nav>
+        </nav> -->
         {% include 'macros/profilehead.html' %}
         <div id="options">
             <div onclick="tabswitch(event)" id="posts-tab" class="tablinks">Posts</div>
@@ -61,7 +61,7 @@
         </div>
         
         <div id="all-posts" class="posts-cover field">
-            {% for post in user.posts %}
+            {% for post in posts %}
             {{ postmacro.post(post, cur_user) }}
             {% endfor %}
         </div>

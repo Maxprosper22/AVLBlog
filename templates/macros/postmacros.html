@@ -2,15 +2,18 @@
 {% macro posthead(xpost, curUser) %}
         <div class="posthead">
             <div class="head-line">
-                <img class="avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
+                <div class="p-avatar-cover">
+                    <img class="avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="" />
+                </div>
                 <div class="time-line">
                     <a href="/user/{{xpost.author.username}}/" class="opinfo">
-                        <div class="">
-                            {{ xpost.author.username }}
-                        </div>
+                        <p class="firstname">{{ xpost.author.firstname }}</p>
+                        <p class="lastname">{{xpost.author.lastname}}</p>
                     </a>
-                    <span class="statspan post-time">
-                        {{ xpost.date_created.strftime("%H:%M %a %d-%m-%y") }}
+                    <span class="statspan">
+                        <p class="author-name">@{{xpost.author.username}}</p>
+                        <p class="span-dvd">|</p>
+                        <p class="post-time">{{ xpost.date_created.strftime("%I:%M%p %d/%m/%y") }}</p>
                     </span>
                 </div>
             </div>

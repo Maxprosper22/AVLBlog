@@ -42,9 +42,10 @@ class Posts:
     def like(self):
         likeData = json.loads(cherrypy.request.body.read())
         print(likeData)
-        
-        viewer = session.query(User).filter(User.username==likeData['viewer']).first()
+        # viewer = session.query(User).filter(User.username==likeData['viewer']).first()
         queryPost = session.query(Post).filter(Post.post_id==likeData['postid']).first()
+        
+        queryPost.like_action(likeData['viewer'])
         if viewer:
             for like in queryPost.likes:
                 if like.user.username == likeData['viewer']:

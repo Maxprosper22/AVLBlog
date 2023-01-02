@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+.head {
+    display: flex;
+    align-items: center;
+    height: 8em;
+    width: 100vw;
+    margin-top: 4em;
+    margin-bottom: 0.5%;
+    border-bottom: 1px solid rgba(0, 128, 128, .2);
+}
+.avatar-cover {
+    height: 6em;
+    width: 6em;
+    margin: 1%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgb(0, 128, 128);
+}
+.avatar {
+    width: 100%;
+    height: 100%;
+}
+.desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 60%;
+    width: 60%;
+    padding: 0 1%;
+    /* border: 1px solid black; */
+}
+.fullname {
+    display: flex;
+    justify-content: space-between;
+    width: 84%;
+    font-size: 1.2em;
+    font-weight: bold;
+    /* border: 1px solid black; */
+}
+.username {
+    font-weight: bold;
+}
+.follows {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 4em;
+    width: 100vw;
+    margin: 0.5% 0;
+    border: 1px solid rgb(0, 128, 128, .2);
+}
+.more-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 3em;
+    width: 6em;
+    margin: 0 2%;
+    font-size: .9em;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: white;
+    color: rgb(0, 128, 128);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    border: 1px solid rgb(0, 128, 128, .2);
+}
+.more-links:active {
+    background-color: rgb(0, 128, 128, .2);
+}
+.bio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 8em;
+    padding: 1% 0;
+    margin: 0.5% 0;
+    border: 1px solid rgb(0, 128, 128, .2);
+}
+.bio-head {
+    display: flex;
+    width: 100%;
+    padding: 0 1%;
+    /* border: 1px solid black; */
+}
+.bio-txt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 3em;
+    width: 95%;
+    margin: 0 auto;
+    overflow: hidden;
+    /* border: 1px solid black; */
+}
+.read-more {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    width: 95%;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 128, 128);
+    border: 1px solid rgb(0, 128, 128);
+}

@@ -1,8 +1,15 @@
 <div class="head">
     <div class="cover">
-        <img class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
+        <img onclick="pixView(event)" class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
         <div class="avatar-cover">
-            <img class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+            <img onclick="pixView(event)" class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+        </div>
+        <div class="view">
+            <div class="view-options">
+                <img onclick="changePix(event)" class="edit-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/edit.svg" alt="Edit" />
+                <img onclick="closePix(event)" class="close-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/cancel_teal.svg" alt="Edit" />
+            </div>
+            <img class="view-img" src="" alt="" />
         </div>
     </div>
     
@@ -18,27 +25,27 @@
                     </div>
                     <div class="followers follow-item">
                         <p>{{user.followers|length}}</p>
-                        <p>Followers</p>
+                        <p>
+                            {% if user.followers|length == 1 %}
+                                Follower
+                            {% else %}
+                                Followers
+                            {% endif %}
+                        </p>
                     </div>
                 </div>
             </div>
             {% if cur_user != 'Guest' %}
-                {% if user.followers %}
-                    {% for follower in user.followers %}
-                        {% if follower.username == cur_user %}
-                            <div class="add-frd">
-                                Chat
-                            </div>
-                        {% else %}
-                            <div onclick="follow(event, '{{cur_user}}, {{user.user_id}})" class="add-frd">
-                                Follow
-                            </div>
-                        {% endif %}
-                    {% endfor %}
-                {% elif cur_user != user.username %}
-                    <div class="add-frd">
-                        Follow
-                    </div>
+                {% if cur_user != user.username %}
+                    {% if user.is_following(cur_user) %}
+                        <div class="add-frd">
+                            Chat
+                        </div>
+                    {% else %}
+                        <div onclick="follow(event, '{{cur_user}}', {{user.user_id}})" class="add-frd">
+                            Follow
+                        </div>
+                    {% endif %}
                 {% endif %}
             {% endif %}
         </div>
