@@ -52,7 +52,7 @@ class Chats:
             'user': chatData.msgs[-1].user.username,
             'chat_id': chatData.chat_id,
             'msg_txt': chatData.msgs[-1].msg_txt,
-            'date': chatData.msgs.date.strftime("%H:%M %a %d-%m-%y")
+            'date': chatData.msgs[-1].date
         }
         lastChat.append(lastMsg)
         

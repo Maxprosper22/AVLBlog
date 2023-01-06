@@ -282,6 +282,10 @@ if __name__ == '__main__':
 		},
 		'/search': {
 		    'tools.sessions.on': True
+		},
+		'/test/static': {
+		    'tools.staticdir.on': True,
+		    'tools.staticdir.dir': 'assets'
 		}
     }
    

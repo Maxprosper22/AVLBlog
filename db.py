@@ -4,8 +4,9 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_json import mutable_json_type
 
-
+from Crypto.PublicKey import ECC
 from datetime import datetime
+import rsa
 
 def get_date():
     return datetime.now()
@@ -88,7 +89,45 @@ class User(Base):
         backref='followers'
     )
     config = Column(mutable_json_type(dbtype=JSONB, nested=True))
+    priv_key = Column(String)
+    pub_key = Column(String)
     
+    def genkeys(self):
+        (pubkey, privkey) = rsa.newkeys(512)
+        
+        self.pub_key, self.priv_key = pubkey.save_pkcs1('PEM'), privkey.save_pkcs1('PEM')
+            
+    def loadkeys(self):
+        publickey = rsa.PublicKey.load_pkcs1(self.pub_key)
+            
+        privatekey = rsa.PrivateKey.load_pkcs1(self.priv_key)
+        
+        return publickey, privatekey
+        
+    def encrypt(self, message):
+        pubkey, privkey = loadkeys()
+        
+        encodedmsg = message.encode('utf-8')
+        encrypted_msg = rsa.encrypt(encodedmsg, pubkey)
+        
+        return encrypted_msg
+        
+    def decrypt(self, ciphertxt):
+        pubkey, privkey = loadkeys()
+        
+        message = rsa.decrypt(ciphertxt, privkey)
+        return message.decode('utf-8')
+    
+    def sign(self, message):
+        signature = rsa.sign(message, self.priv_key, 'SHA-1')
+        return signature
+        
+    def verify(self, message, signature, pubkey):
+        if rsa.verify(message, signature, pubkey):
+            return True
+        else:
+            return False
+        
     def follow(self, username):
         try:
             checkUser = session.query(User).filter(User.username==username).first()

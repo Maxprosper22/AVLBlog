@@ -33,4 +33,6 @@ page = env.get_template('/page.html')
 space = env.get_template('/space.html')
 genSpace = env.get_template('/genspace.html')
 
+socket_test = env.get_template('/socket_test.html')
+
 all_dir = env.get_template('/directory.html')

@@ -12,93 +12,63 @@ toastCover = document.querySelector('#toast-cover')
 
 msgtxt = document.querySelector('#new-msg')
 
+let socket = new WebSocket('ws://127.0.0.1:8765')
+    
 async function send_msg(event, xlogged, xchatid) {
     if (msgtxt.value==''){
         toastCover.style.display = 'flex'
         toast.innerHTML = 'Message is empty'
-        let animation = anime({
-            targets: "#toast-cover",
-            keyframes: [
-                {opacity: 1},
-                {opacity: .75},
-                {opacity: .5},
-                {opacity: .25},
-                {opacity: 0}
-            ],
+        let animation = anime({targets: "#toast-cover", keyframes: [{opacity: 1}, {opacity: .75}, {opacity: .5},{opacity: .25}, {opacity: 0}],
             duration: 4000,
             easing: "linear"
         });
-        setTimeout(function() {
-            toastCover.style.display = 'none'
-        }, 4500);
+        setTimeout(function() {toastCover.style.display = 'none'}, 4500);
     }
     else {
         msgData = {
+            'sender': xlogged,
             'msg_txt' : msgtxt.value,
-            'chat_id': xchatid
+            'chat_id': xchatid,
+            'token': '',
         }
         parsedData = JSON.stringify(msgData)
-        
-        let postMsg = await fetch(`sendmsg`, {
-                method: "POST",
-                redirect: "follow",
-                headers: {
-                    "Content-Type": ("application/json")
-                    },
-                body: parsedData,
-            }
-        )
-        res = await postMsg
-        console.log(res.status)
-        if (res.status=='200'){
-            getLastChat(xchatid)
-        } else {
-            toastCover.style.display = 'flex'
-            toast.innerHTML = 'An error occurred!'
-            let animation = anime({
-                targets: "#toast-cover",
-                keyframes: [
-                    {opacity: 1},
-                    {opacity: .5},
-                    {opacity: 0}
-                ],
-                duration: 2000,
-                easing: "linear"
-            });
-            setTimeout(function() {
-                toastCover.style.display = 'none'
-            }, 2500);
-        }
+        console.log(parsedData)
+        console.log(socket)
+        socket.send(parsedData)
         msgtxt.value = ''
     }
 }
-
-async function getLastChat(xchatid) {
-    let fetchChat = await fetch(`get_chat?chatid=${xchatid}`)
-    res = await fetchChat
-    if (res.status==200) {
-        data = await res.json()
-        console.log(data['user'])
-    }
-    else {
-        toastCover.style.display = 'flex'
-        toast.innerHTML = 'Unable to fetch data'
-        let animation = anime({
-            targets: "#toast-cover",
-            keyframes: [
-                {opacity: 1},
-                {opacity: .5},
-                {opacity: 0}
-            ],
-            duration: 2000,
-            easing: "linear"
-        });
-        setTimeout(function() {
-            toastCover.style.display = 'none'
-        }, 2500);
-    }
+socket.onmessage = function (event) {
+    alert('A message has arrived!')
+    console.log(event.data)
 }
-setInterval(getLastChat(location.search.slice(-1)), 10000)
+
+// async function getLastChat(xchatid) {
+//     let fetchChat = await fetch(`get_chat?chatid=${xchatid}`)
+//     res = await fetchChat
+//     if (res.status==200) {
+//         data = await res.json()
+//         console.log(data['user'])
+//     }
+//     else {
+//         toastCover.style.display = 'flex'
+//         toast.innerHTML = 'Unable to fetch data'
+//         let animation = anime({
+//             targets: "#toast-cover",
+//             keyframes: [
+//                 {opacity: 1},
+//                 {opacity: .5},
+//                 {opacity: 0}
+//             ],
+//             duration: 2000,
+//             easing: "linear"
+//         });
+//         setTimeout(function() {
+//             toastCover.style.display = 'none'
+//         }, 2500);
+//     }
+// }
+// setInterval(getLastChat(location.search.slice(-1)), 10000)
 
 eContainer = document.getElementById('emoji-container')
 

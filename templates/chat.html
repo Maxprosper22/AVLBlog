@@ -64,14 +64,14 @@
                         {% endfor %}
                     {% endif %}
                     <p class="chat-item">{{msg.msg_txt}}</p>
-                    <p class="chat-item msg-date">{{msg.date.strftime("%H:%M %d-%m-%y")}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%I:%M%p %d-%m-%y")}}</p>
                 </div>
             </div>
             {% else %}
             <div class="chat-rows">
                 <div class="chat-box chatmate">
                     <p class="chat-item">{{msg.msg_txt}}</p>
-                    <p class="chat-item msg-date">{{msg.date.strftime("%H:%M %d-%m-%y")}}</p>
+                    <p class="chat-item msg-date">{{msg.date.strftime("%I:%M%p %d/%m/%y")}}</p>
                 </div>
             </div>
             {% endif %}
@@ -80,11 +80,14 @@
 <div class="msg-cover">
     <div class="msg-upload">
         <div class="msg-input">
-            <div onclick="showEmo(event)" class="emojis msg-alibi">&#128512;</div>
-            <textarea onfocus="closeEmo(event)" onblur="closeTxt(event)" class="new-msg" id="new-msg" placeholder="Hello... "></textarea>
+            <div class="emojis msg-alibi">&#128512;</div>
+            <textarea class="new-msg" id="new-msg" placeholder="Hello... "></textarea>
             <div class="link-files msg-alibi">&#128206;</div>
         </div>
-        <div onclick="send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
+        <!-- <div onclick="send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
+            <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
+        </div> -->
+        <div onclick="socket.onopen=send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
             <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
         </div>
     </div>
