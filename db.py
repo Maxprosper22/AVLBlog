@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime, ForeignKey, Boolean, Table
+from sqlalchemy import create_engine, Column, String, Text, Integer, DateTime, ForeignKey, Boolean, Table, LargeBinary
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import JSONB
@@ -89,8 +89,8 @@ class User(Base):
         backref='followers'
     )
     config = Column(mutable_json_type(dbtype=JSONB, nested=True))
-    priv_key = Column(String)
-    pub_key = Column(String)
+    priv_key = Column(LargeBinary, 'utf-8')
+    pub_key = Column(LargeBinary, 'utf-8')
     
     def genkeys(self):
         (pubkey, privkey) = rsa.newkeys(512)
