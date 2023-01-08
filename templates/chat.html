@@ -84,9 +84,6 @@
             <textarea class="new-msg" id="new-msg" placeholder="Hello... "></textarea>
             <div class="link-files msg-alibi">&#128206;</div>
         </div>
-        <!-- <div onclick="send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
-            <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
-        </div> -->
         <div onclick="socket.onopen=send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
             <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
         </div>

@@ -1,6 +1,5 @@
 curDiv = document.querySelector('.chat-box')
 dataDiv = document.querySelectorAll('.chat-rows')
-// document.onload =curDiv.focus()
 
 genCover = document.querySelector('#gen-cover')
 
@@ -39,8 +38,27 @@ async function send_msg(event, xlogged, xchatid) {
     }
 }
 socket.onmessage = function (event) {
+    data = JSON.parse(event.data)
     alert('A message has arrived!')
     console.log(event.data)
+    chatRow = document.createElement('DIV')
+    chatRow.setAttribute('class', 'chat-rows')
+    
+    chatBox = document.createElement('DIV')
+    chatBox.className = "chat-box chat-mate"
+    
+    chatMsg = document.createElement('P')
+    chatMsg.innerHTML = data['msg_txt']
+    chatMsg.className = 'chat-item'
+    
+    chatDate = document.createElement('P')
+    chatDate.innerHTML = data['chat_id']
+    chatDate.className = 'chat-item msg-date'
+    
+    chatBox.appendChild(chatMsg)
+    chatBox.appendChild(chatDate)
+    chatRow.appendChild(chatBox)
+    genCover.appendChild(chatRow)
 }
 
 // async function getLastChat(xchatid) {

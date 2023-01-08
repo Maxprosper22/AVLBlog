@@ -6,4 +6,6 @@ site/
 package-lock.json
 req_stat.py
 keys/
+keytests/
 alembic
+assets/scripts/libraries/pyodide

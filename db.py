@@ -89,14 +89,23 @@ class User(Base):
         backref='followers'
     )
     config = Column(mutable_json_type(dbtype=JSONB, nested=True))
-    priv_key = Column(LargeBinary, 'utf-8')
-    pub_key = Column(LargeBinary, 'utf-8')
+    priv_key = Column(String)
+    pub_key = Column(String)
     
     def genkeys(self):
         (pubkey, privkey) = rsa.newkeys(512)
         
-        self.pub_key, self.priv_key = pubkey.save_pkcs1('PEM'), privkey.save_pkcs1('PEM')
+        self.pub_key = f"{pubkey.save_pkcs1('PEM')}"
+        self.priv_key = f"{privkey.save_pkcs1('PEM')}"
             
+    def destring(self):
+        pubkey = self.pub_key[1:-2]
+        privkey = self.priv_key[1:-1]
+        print(pubkey)
+        print(privkey)
+        
+        return pubkey, privkey
+        
     def loadkeys(self):
         publickey = rsa.PublicKey.load_pkcs1(self.pub_key)
             
