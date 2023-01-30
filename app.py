@@ -14,6 +14,8 @@ from components.profile import Profile
 from components.search import Search
 from components.page import GenPage
 from components.space import GenSpace
+from components.apis.api import API
+
 from components.subcomponents.test import Test
 
 from components.subcomponents.usercreation import adduser
@@ -37,6 +39,7 @@ class App:
         self.search = Search()
         self.page = GenPage()
         self.space = GenSpace()
+        self.api = API()
         self.test = Test()
         
     @cherrypy.expose
@@ -293,10 +296,10 @@ app = App()
 
 # cherrypy.config.update({'environment': 'production'})
 cherrypy.config.update({
-    # 'server.ssl_module': 'pyopenssl',
-    # 'server.ssl_certificate': './site/certificate/cert.pem',
-    # 'server.ssl_private_key': './site/certificate/private-key.pem',
-    # 'server.socket_port': 443,
+    'server.ssl_module': 'pyopenssl',
+    'server.ssl_certificate': './site/certificate/cert.pem',
+    'server.ssl_private_key': './site/certificate/private-key.pem',
+    'server.socket_port': 443,
     
     'server.socket_host': '0.0.0.0',
     'server.socket_port': int(os.environ.get('PORT', 8080)),

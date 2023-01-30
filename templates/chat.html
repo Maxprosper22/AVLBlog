@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/chat.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/css/toast.css" type="text/css" media="all" />
     <link rel="stylesheet" href="{{ origin.origin().innerHTML }}/static/scripts/libraries/emojs/emoji.css" type="text/css" media="all" />
+    <script src="{{origin.origin().innerHTML}}/static/scripts/libraries/pyodide/pyodide.js" type="text/javascript" charset="utf-8"></script>
     <title>
         {% if chat.chat_type == 'p2p' %}
             {% for user in chat.users %}
@@ -76,6 +77,10 @@
             </div>
             {% endif %}
         {% endfor %}
+    
+    <maxpee id="maxpee" src="{{origin.origin().innerHTML}}/static/scripts/py/socket.py" type="text/python" charset="utf-8">
+    </maxpee>
+    
     </div>
 <div class="msg-cover">
     <div class="msg-upload">
@@ -84,7 +89,7 @@
             <textarea class="new-msg" id="new-msg" placeholder="Hello... "></textarea>
             <div class="link-files msg-alibi">&#128206;</div>
         </div>
-        <div onclick="socket.onopen=send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
+        <div onclick="send_msg(event, '{{cur_user}}', {{chat.chat_id}})" class="sendmsg">
             <img src="{{ origin.origin().innerHTML }}/static/images/icons/send_white.svg"/>
         </div>
     </div>

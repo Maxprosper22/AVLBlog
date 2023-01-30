@@ -57,6 +57,21 @@ spaces_table = Table(
     Column('space_id', ForeignKey('spaces.space_id'), primary_key=True)
 )
 
+def createChat(ctype, chatname, visibility, **userobjs):
+    newChat =Chat(chat_type=cytpe)
+    newChat.users = [user for user in userobjs]
+    
+    if ctype == 'grp':
+        newChat.chat_name = chatname
+        
+    if ctype == 'p2p':
+        newChat.visibility = 'private'
+    elif ctype == 'grp':
+        newChat.visibility = visibility
+        
+    session.add(newChat)
+    session.commit()
+
 class User(Base):
     __tablename__ = 'users'
     
@@ -89,68 +104,22 @@ class User(Base):
         backref='followers'
     )
     config = Column(mutable_json_type(dbtype=JSONB, nested=True))
-    priv_key = Column(String)
-    pub_key = Column(String)
-    
-    def genkeys(self):
-        (pubkey, privkey) = rsa.newkeys(512)
-        
-        self.pub_key = f"{pubkey.save_pkcs1('PEM')}"
-        self.priv_key = f"{privkey.save_pkcs1('PEM')}"
-            
-    def destring(self):
-        pubkey = self.pub_key[1:-2]
-        privkey = self.priv_key[1:-1]
-        print(pubkey)
-        print(privkey)
-        
-        return pubkey, privkey
-        
-    def loadkeys(self):
-        publickey = rsa.PublicKey.load_pkcs1(self.pub_key)
-            
-        privatekey = rsa.PrivateKey.load_pkcs1(self.priv_key)
-        
-        return publickey, privatekey
-        
-    def encrypt(self, message):
-        pubkey, privkey = loadkeys()
-        
-        encodedmsg = message.encode('utf-8')
-        encrypted_msg = rsa.encrypt(encodedmsg, pubkey)
-        
-        return encrypted_msg
-        
-    def decrypt(self, ciphertxt):
-        pubkey, privkey = loadkeys()
-        
-        message = rsa.decrypt(ciphertxt, privkey)
-        return message.decode('utf-8')
-    
-    def sign(self, message):
-        signature = rsa.sign(message, self.priv_key, 'SHA-1')
-        return signature
-        
-    def verify(self, message, signature, pubkey):
-        if rsa.verify(message, signature, pubkey):
-            return True
-        else:
-            return False
         
     def follow(self, username):
         try:
             checkUser = session.query(User).filter(User.username==username).first()
+            if checkUser != self:
+                if not self.is_followed(username):
+                    self.followed.append(checkUser)
+                    createChat('p2p', None, 'private', [self, checkUser])
+                    session.commit()
+                    return f'You now follow {checkUser.username}'
+                else:
+                    return f'Cannot follow self'
+            else:
+                return f'You already follow {checkUser.username}'
         except Exception as e:
             raise e
-        if checkUser != self:
-            if not self.is_followed(username):
-                self.followed.append(checkUser)
-                session.commit()
-                return f'You now follow {checkUser.username}'
-            else:
-                return f'Cannot follow self'
-        else:
-            return f'You already follow {checkUser.username}'
     
     def unfollow(self, username):
         try:

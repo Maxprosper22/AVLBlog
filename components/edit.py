@@ -1,5 +1,6 @@
 import cherrypy
 from components.templater import edit
+from db import session, User
 
 class Edit:
     @cherrypy.expose
@@ -14,3 +15,7 @@ class Edit:
             curUser = cherrypy.session['username']
             
             return edit.render(cur_user=curUser, user=viewedUser)
+            
+    @cherrypy.expose
+    def update_avatar(self, username):
+        pass

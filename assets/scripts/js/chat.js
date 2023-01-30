@@ -9,36 +9,53 @@ window.addEventListener('load', function(event) { genCover.lastElementChild.scro
 })
 toastCover = document.querySelector('#toast-cover')
 
+maxpee = document.getElementsByTagName('maxpee')
+
+async function main() {
+    pyodide = await loadPyodide()
+    await pyodide.loadPackage("micropip")
+    micropip = pyodide.pyimport("micropip")
+    micropip.install(location.origin+'/static/scripts/libraries/pyodide/websockets-10.4-cp311-cp311-linux_aarch64.whl')
+    // pyodide.loadPackage('websockets')
+    maxpee[0].style.display = 'none'
+    pyodide.runPython(maxpee[0].innerHTML)
+    // return pyodide, micropip
+}
+// main()
+
 msgtxt = document.querySelector('#new-msg')
 
 let socket = new WebSocket('ws://127.0.0.1:8765')
-    
+
 async function send_msg(event, xlogged, xchatid) {
-    if (msgtxt.value==''){
-        toastCover.style.display = 'flex'
-        toast.innerHTML = 'Message is empty'
-        let animation = anime({targets: "#toast-cover", keyframes: [{opacity: 1}, {opacity: .75}, {opacity: .5},{opacity: .25}, {opacity: 0}],
-            duration: 4000,
-            easing: "linear"
-        });
-        setTimeout(function() {toastCover.style.display = 'none'}, 4500);
-    }
-    else {
-        msgData = {
-            'sender': xlogged,
-            'msg_txt' : msgtxt.value,
-            'chat_id': xchatid,
-            'token': '',
+        if (msgtxt.value==''){
+            toastCover.style.display = 'flex'
+            toast.innerHTML = 'Message is empty'
+            let animation = anime({targets: "#toast-cover", keyframes: [{opacity: 1}, {opacity: .75}, {opacity: .5},{opacity: .25}, {opacity: 0}],
+                duration: 4000,
+                easing: "linear"
+            });
+            setTimeout(function() {toastCover.style.display = 'none'}, 4500);
         }
-        parsedData = JSON.stringify(msgData)
-        console.log(parsedData)
-        console.log(socket)
-        socket.send(parsedData)
-        msgtxt.value = ''
-    }
+        else {
+            msgData = {
+                'sender': xlogged,
+                'msg_txt' : msgtxt.value,
+                'chat_id': xchatid,
+                'token': '',
+            }
+            parsedData = JSON.stringify(msgData)
+            // console.log(parsedData)
+            // console.log(socket)
+            socket.addEventListener('onopen', () => {
+                socket.send(parsedData)
+            })
+            msgtxt.value = ''
+        }
+    // })
 }
-socket.onmessage = function (event) {
-    data = JSON.parse(event.data)
+socket.addEventListener('message', ({data}) => {
+    data = JSON.parse(data)
     alert('A message has arrived!')
     console.log(event.data)
     chatRow = document.createElement('DIV')
@@ -59,34 +76,7 @@ socket.onmessage = function (event) {
     chatBox.appendChild(chatDate)
     chatRow.appendChild(chatBox)
     genCover.appendChild(chatRow)
-}
-
-// async function getLastChat(xchatid) {
-//     let fetchChat = await fetch(`get_chat?chatid=${xchatid}`)
-//     res = await fetchChat
-//     if (res.status==200) {
-//         data = await res.json()
-//         console.log(data['user'])
-//     }
-//     else {
-//         toastCover.style.display = 'flex'
-//         toast.innerHTML = 'Unable to fetch data'
-//         let animation = anime({
-//             targets: "#toast-cover",
-//             keyframes: [
-//                 {opacity: 1},
-//                 {opacity: .5},
-//                 {opacity: 0}
-//             ],
-//             duration: 2000,
-//             easing: "linear"
-//         });
-//         setTimeout(function() {
-//             toastCover.style.display = 'none'
-//         }, 2500);
-//     }
-// }
-// setInterval(getLastChat(location.search.slice(-1)), 10000)
+})
 
 eContainer = document.getElementById('emoji-container')
 

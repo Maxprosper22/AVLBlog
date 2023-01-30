@@ -3,27 +3,21 @@ from db import session, User, Message, Chat, ChatMedia, Media, Contact
 
 clients = set()
 
-async def authCheck():
-    pass
-
-async def dispatcher(websocket):
-    clients.add(websocket)
+async def register(websocket):
     try:
-        res = await websocket.recv()
-        parsed = json.loads(res)
-                # for client in clients:
-                    # if client != websocket:
-                    # client.send(message)
-        
-        await websocket.send({res})
-        print(websocket)
-        print(parsed)
-    except Exception as e:
-        print(e)
+        await websocket.wait_closed()
+    finally:
+        clients.remove(websocket)
+
+
+async def dispatcher():
+    message = 'Hello, this is the rrsponse fron the server'
+    while True:
+        websockets.send(clients, message)
 
 async def main_call():
-    async with websockets.serve(dispatcher, "localhost", 8765):
-        await asyncio.Future()  # run forever
+    async with websockets.serve(register, "localhost", 8765):
+        await dispatcher()  # run forever
 
 if __name__ == "__main__":
     asyncio.run(main_call())

@@ -2,11 +2,11 @@
     <div class="cover">
         <img onclick="pixView(event)" class="cover-img" src="{{ origin.origin().innerHTML }}/static/images/backgrounds/image.jpg" alt="" />
         <div class="avatar-cover">
-            <img onclick="pixView(event)" class="p-avatar" src="{{ origin.origin().innerHTML }}/static/images/icons/profile_icons_plain.svg" alt="avatar" />
+            <img onclick="pixView(event)" class="p-avatar" src="{{ origin.origin().innerHTML }}/static/{{user.avatar}}.svg" alt="avatar" />
         </div>
         <div class="view">
             <div class="view-options">
-                <img onclick="changePix(event)" class="edit-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/edit.svg" alt="Edit" />
+                <img onclick="pickFiles(event)" class="edit-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/edit.svg" alt="Edit" />
                 <img onclick="closePix(event)" class="close-icon" src="{{ origin.origin().innerHTML }}/static/images/icons/cancel_teal.svg" alt="Edit" />
             </div>
             <img class="view-img" src="" alt="" />

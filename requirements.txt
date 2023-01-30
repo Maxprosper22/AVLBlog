@@ -2,4 +2,5 @@ cherrypy
 psycopg2
 jinja2
 sqlalchemy
+sqlalchemy_json
 py-bcrypt
