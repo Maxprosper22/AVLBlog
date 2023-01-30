@@ -1,4 +1,4 @@
-import cherrypy, asyncio, websocket
+import cherrypy, asyncio
 from components.templater import socket_test
 
 from server import main_call
