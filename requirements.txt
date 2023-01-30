@@ -4,3 +4,4 @@ jinja2
 sqlalchemy
 sqlalchemy_json
 py-bcrypt
+rsa
