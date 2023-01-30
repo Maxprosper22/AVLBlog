@@ -4,7 +4,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_json import mutable_json_type
 
-from Crypto.PublicKey import ECC
 from datetime import datetime
 import rsa
 
@@ -14,18 +13,7 @@ def get_date():
 
 # Remote server details
 
-# Host: ec2-52-3-60-53.compute-1.amazonaws.com
-# Database: dcalct5to7n3rm
-# User: culdilrpeoznsu
-# Password: 809d19ace0b87fee6fbbe03f4a2523b482f1da88c54276cb41a368b4a4e0a0a3
-# URI: postgres://culdilrpeoznsu:809d19ace0b87fee6fbbe03f4a2523b482f1da88c54276cb41a368b4a4e0a0a3@ec2-52-3-60-53.compute-1.amazonaws.com:5432/dcalct5to7n3rm
-    
-engine = create_engine('postgresql+psycopg2://mapro:Prosper22$$@localhost:5432/avlblogdb', echo=False)
-# aws_db_endpoint = 'avlblogdb.cuwtmrddsggm.us-east-1.rds.amazonaws.com'
-
-# engine = create_engine(f'postgresql+psycopg2://mapro:Prosper22$$@{aws_db_endpoint}:5432/avlblogdb', echo=False)
-# engine = create_engine('postgresql+psycopg2://culdilrpeoznsu:809d19ace0b87fee6fbbe03f4a2523b482f1da88c54276cb41a368b4a4e0a0a3@ec2-52-3-60-53.compute-1.amazonaws.com:5432/dcalct5to7n3rm', echo=False)
-# connect_args={'check_same_thread': False})
+engine = create_engine('postgresql+psycopg2://postgres:C0xTiSl3ej79MyDv0J1j@containers-us-west-137.railway.app:7263/railway', echo=False)
 
 Session = sessionmaker(bind=engine)
 session = Session()
