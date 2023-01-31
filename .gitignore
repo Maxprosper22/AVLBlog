@@ -9,3 +9,4 @@ keys/
 keytests/
 alembic
 assets/scripts/libraries/pyodide
+.env
