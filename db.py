@@ -5,15 +5,22 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy_json import mutable_json_type
 
 from datetime import datetime
-import rsa
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+db_user = os.environ['user']
+db_password = os.environ['password']
+db_host = os.environ['host']
+db_port = os.environ['port']
+db_name = os.environ['db_name']
 
 def get_date():
     return datetime.now()
     
-
-# Remote server details
-
-engine = create_engine('postgresql+psycopg2://postgres:C0xTiSl3ej79MyDv0J1j@containers-us-west-137.railway.app:7263/railway', echo=False)
+engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}', echo=False)
 
 Session = sessionmaker(bind=engine)
 session = Session()

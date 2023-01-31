@@ -84,3 +84,4 @@ websockets==10.4
 ws4py==0.5.1
 yarl==1.8.1
 zc.lockfile==2.0
+python-dotenv
